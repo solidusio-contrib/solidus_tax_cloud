@@ -25,11 +25,9 @@ module Spree
       index = -1 # array is zero-indexed
       # Prepare line_items for lookup
       order.line_items.each { |line_item| transaction.cart_items << cart_item_from_item(line_item, index += 1) }
-
       # Prepare shipments for lookup
       order.shipments.each { |shipment| transaction.cart_items << cart_item_from_item(shipment, index += 1) }
-
-      return transaction
+      transaction
     end
 
     def self.address_from_spree_address(address)
@@ -54,7 +52,6 @@ module Spree
         price:      line_item.price,
         quantity:   line_item.quantity
         )
-
       elsif item.class.name.demodulize == "Shipment"
         shipment = item
         ::TaxCloud::CartItem.new(
@@ -64,11 +61,9 @@ module Spree
         price:      shipment.cost,
         quantity:   1
         )
-
       else
         raise 'TaxCloud::CartItem cannot be made from this item.'
       end
     end
-
   end
 end
