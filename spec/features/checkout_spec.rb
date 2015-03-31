@@ -116,7 +116,7 @@ describe 'Checkout', js: true do
     expect(page).not_to have_content("Address Verification Failed")
   end
 
-  it 'completes TaxCloud test case 1a' do
+  it 'TaxCloud Test Case 1a: Verify Address with error' do
     add_to_cart("RoR Mug")
     click_button "Checkout"
 
@@ -135,7 +135,7 @@ describe 'Checkout', js: true do
     page.should have_content("Sales Tax $0.94")
   end
 
-  it 'completes TaxCloud test case 1b' do
+  it 'TaxCloud Test Case 1b: Verify Address without error' do
     add_to_cart("RoR Mug")
     click_button "Checkout"
 
@@ -150,7 +150,7 @@ describe 'Checkout', js: true do
     page.should have_content("Sales Tax $0.95")
   end
 
-  it 'completes TaxCloud test case 2a' do
+  it 'TaxCloud Test Case 2a: If all items in cart are tax ecempt, shipping is not taxed (in some states)' do
     add_to_cart("Shirt")
     click_button "Checkout"
 
@@ -174,7 +174,7 @@ describe 'Checkout', js: true do
     page.should have_content("ORDER TOTAL: $20")
   end
 
-  it 'completes TaxCloud test case 2b' do
+  it 'TaxCloud Test Case 2b: With both taxable and tax exempt items, shipping is taxable' do
     add_to_cart("RoR Mug")
     add_to_cart("Shirt")
     click_button "Checkout"
@@ -206,7 +206,7 @@ describe 'Checkout', js: true do
     page.should have_content("ORDER TOTAL: $31.52")
   end
 
-  it 'completes TaxCloud test case 3' do
+  it 'TaxCloud Test Case 3: Item taxable, shipping not taxable' do
     add_to_cart("Shirt")
     click_button "Checkout"
 
@@ -230,15 +230,15 @@ describe 'Checkout', js: true do
     page.should have_content("ORDER TOTAL: $20.84")
   end
 
-  # it 'completes TaxCloud test case 4' do
+  # it 'TaxCloud Test Case 4: Return all items in previous order' do
   # TODO
   # end
   #
-  # it 'completes TaxCloud test case 5' do
+  # it 'TaxCloud Test Case 5: Return single item in previous order' do
   # TODO
   # end
 
-  it 'completes TaxCloud test case 6' do
+  it 'TaxCloud Test Case 6: Item and shipping taxable' do
     add_to_cart("Shirt")
     click_button "Checkout"
 
@@ -264,7 +264,7 @@ describe 'Checkout', js: true do
     page.should have_content("ORDER TOTAL: $21.60")
   end
 
-  # it 'completes TaxCloud test case 7' do
+  # it 'TaxCloud Test Case 7: Handling errors' do
   # TODO
   # end
 
