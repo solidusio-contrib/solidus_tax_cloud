@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'savon', '~> 2.5.1'
   s.add_runtime_dependency 'tax_cloud', '~> 0.3.0'
 
-  s.add_development_dependency 'spree_frontend'
+  s.add_development_dependency 'solidus_frontend'
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'poltergeist'
   s.add_development_dependency 'coffee-rails'
