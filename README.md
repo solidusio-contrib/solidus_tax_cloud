@@ -1,9 +1,7 @@
-Spree::TaxCloud 
+Solidus::TaxCloud 
 =======================
 
-Spree::TaxCloud is a US sales tax extension for Spree using the Tax Cloud service.
-
-Based on the work of Chris Mar and Drew Tempelmeyer.
+Solidus::TaxCloud is a US sales tax extension for Solidus using the Tax Cloud service.
 
 TaxCloud Configuration
 -----
@@ -15,18 +13,19 @@ TaxCloud Configuration
 3. Go to `Your Account` >> `Tax States`, and turn on sales tax collection for the relevant states in which you want/need to collect sales tax. (**NOTE:** Unless states are explicitly added, TaxCloud will return zero sales tax by default for orders shipping to those states.)
 
 
-Spree Configuration
+Solidus Configuration
 ------------------------
 
 ## Installation
 
 1. Add this extension to your Gemfile with this line:
   ```ruby
-  gem 'spree_tax_cloud', github: 'spree-contrib/spree_tax_cloud', branch: 'X-X-stable'
+  gem 'spree_tax_cloud', github: 'solidusio-contrib/solidus_tax_cloud'
   ```
 
-  The `branch` option is important: it must match the version of Spree you're using.
-  For example, use `3-0-stable` if you're using Spree `3-0-stable` or any `3.0.x` version.
+  Note that the gem currently uses the Spree namespace internally (as does Solidus itself).
+  The `branch` option is important: it should match the version of Solidus you're using.
+  For example, use `v2.0` if you're using the Solidus `v2.0` branch or any of the 2.0.x gem releases.
 
 2. Install the gem using Bundler:
   ```ruby
@@ -43,15 +42,15 @@ Spree Configuration
   If your server was running, restart it so that it can find the assets properly.
 
 
-In the Admin section of Spree, go to Configurations, then select TaxCloud Settings.
+In the Admin section of Solidus, go to Configurations, then select TaxCloud Settings.
 
 Enter your `api_login_id` and `api_key`, and optionally your USPS login.
 You can also configure the default Product TIC and Shipping TIC for TaxCloud to use, although it is recommended to leave the defaults as is: `00000` for product default and `11010` for shipping default.
 
 All Products will default to the default product TIC specified here unless they are given an explicit value.
-Specific product-level TICs may be specified per-product in the Products section of the Spree admin backend. If you are uncertain about the correct TIC for a product (whether it be clothing, books, etc.), taxability code information may be obtained from [Tax Cloud](https://taxcloud.net/tic/default.aspx).
+Specific product-level TICs may be specified per-product in the Products section of the Solidus admin backend. If you are uncertain about the correct TIC for a product (whether it be clothing, books, etc.), taxability code information may be obtained from [Tax Cloud](https://taxcloud.net/tic/default.aspx).
 
-To complete your Spree::TaxCloud configuration, you will need to create a TaxRate to apply rates obtained from Tax Cloud to your Spree LineItems and Shipments.
+To complete your Solidus::TaxCloud configuration, you will need to create a TaxRate to apply rates obtained from Tax Cloud to your Spree LineItems and Shipments.
 Under Configuration select Tax Rates, and click Create a New Tax Rate. Recommended defaults are as follows:
 
 - Name: `Sales Tax` (This label will be visible to users during the checkout process)
@@ -65,17 +64,17 @@ Under Configuration select Tax Rates, and click Create a New Tax Rate. Recommend
 Notes
 ------------------------
 
-Spree::TaxCloud is designed to function in a single TaxCategory.
+Solidus::TaxCloud is designed to function in a single TaxCategory.
 It is expected that all Products and all ShippingMethods will be in the same TaxCategory as the one configured for the TaxRate using the Tax Cloud calculator above (in this example, `Taxable`).
 
-Spree::TaxCloud is designed to perform all US-related tax calculation itself, and as such does not use Spree configuration like TaxCategories to specify whether goods are Taxable, Tax-Exempt, Clothing, Food, etc.
-Spree::TaxCloud does not use the Spree configuration `tax_address` (which specifies whether the shipping or billing address should be used to compute tax), instead _always_ using the shipping address if possible, and only falling back to the billing address if the shipping address is `nil`.
+Solidus::TaxCloud is designed to perform all US-related tax calculation itself, and as such does not use Solidus configuration like TaxCategories to specify whether goods are Taxable, Tax-Exempt, Clothing, Food, etc.
+Solidus::TaxCloud does not use the Solidus configuration `tax_address` (which specifies whether the shipping or billing address should be used to compute tax), instead _always_ using the shipping address if possible, and only falling back to the billing address if the shipping address is `nil`.
 (Asking Spree::TaxCloud to compute orders whose shipping _and_ billing addresses are `nil` will result in an exception.)
 
 TODO
 ----
 
-Some work on the Spree:TaxCloud extension is ongoing. Namely:
+Some work on the Solidus:TaxCloud extension is ongoing. Namely:
 
 - [x] Fill out a more complete set of feature specs using the test case scenarios provided by Tax Cloud.
 
@@ -85,11 +84,11 @@ Some work on the Spree:TaxCloud extension is ongoing. Namely:
 
 - [ ] Item Returns: Create feature specs and make the appropriate API calls to properly process sales tax on item returns.
 
-- [ ] Promotions: Spree::TaxCloud is not (yet) fully compatible with some types of Spree promotions. For instance in cases such as "$10 off all orders over $100," it is not explicit how such a discount will affect the costs of individual items. In these cases, Spree::TaxCloud will fall back to charging sales tax on the full (undiscounted) item price.
+- [ ] Promotions: Solidus::TaxCloud is not (yet) fully compatible with some types of Solidus promotions. For instance in cases such as "$10 off all orders over $100," it is not explicit how such a discount will affect the costs of individual items. In these cases, Solidus::TaxCloud will fall back to charging sales tax on the full (undiscounted) item price.
 
 Discussion and pull requests addressing this functionality are welcomed.
 
-COPYRIGHT
+License and Acknowledgments
 ---------
 
-[Copyright]( http://jet.mit-license.org/ ) by Jerrold R Thompson 
+Solidus::TaxCloud is based on the [spree-contrib community extension](https://github.com/spree-contrib/spree_tax_cloud), which was in turn based on the earlier Spree [extension](https://github.com/jetsgit/spree_tax_cloud) by Jerrold R Thompson ([MIT License](http://jet.mit-license.org/)), which was in turn based on the earlier work of Chris Mar and the [TaxCloud gem](https://github.com/drewtempelmeyer/tax_cloud) by Drew Tempelmeyer.
