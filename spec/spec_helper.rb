@@ -26,7 +26,7 @@ Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
-  config.include Spree::TestingSupport::ControllerRequests
+  config.include Spree::TestingSupport::ControllerRequests, :type => :controller
   config.include Spree::TestingSupport::Preferences
   config.include Spree::TestingSupport::Flash
   config.include Spree::TestingSupport::UrlHelpers
