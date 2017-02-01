@@ -76,6 +76,7 @@ describe 'Checkout', js: true do
     # page.should have_content("Tax: $0.00") # Alabama orders are configured under this API key to have no tax
 
     click_on "Save and Continue"
+    click_on "Place Order"
     expect(current_path).to match(spree.order_path(Spree::Order.last))
   end
 
@@ -109,6 +110,7 @@ describe 'Checkout', js: true do
 
     click_button "Save and Continue"
     click_button "Save and Continue"
+    click_button "Place Order"
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
     expect(page).not_to have_content("Address Verification Failed")
@@ -165,6 +167,7 @@ describe 'Checkout', js: true do
     page.should have_content("Order Total: $20")
 
     click_on "Save and Continue"
+    click_button "Place Order"
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
     page.should_not have_content("Sales Tax")
@@ -196,6 +199,7 @@ describe 'Checkout', js: true do
     # but rather is rounded per-line-item, then summed.
 
     click_on "Save and Continue"
+    click_button "Place Order"
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
     page.should have_content("Sales Tax $1.52")
@@ -219,6 +223,7 @@ describe 'Checkout', js: true do
     page.should have_content("Order Total: $20.84")
 
     click_on "Save and Continue"
+    click_button "Place Order"
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
     page.should have_content("Sales Tax $0.84")
@@ -252,6 +257,7 @@ describe 'Checkout', js: true do
     page.should have_content("Order Total: $21.60")
 
     click_on "Save and Continue"
+    click_button "Place Order"
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
     page.should have_content("Sales Tax $1.60")
