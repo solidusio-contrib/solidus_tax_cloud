@@ -10,12 +10,12 @@ Spree::Order.class_eval do
     log_tax_cloud(response)
   end
 
-  # TaxRate.match is used here to check if the order is taxable by Tax Cloud.
+  # Order.tax_zone.tax_rates is used here to check if the order is taxable by Tax Cloud.
   # It's not possible check against the order's tax adjustments because
   # an adjustment is not created for 0% rates. However, US orders must be
   # submitted to Tax Cloud even when the rate is 0%.
   def is_taxed_using_tax_cloud?
-    Spree::TaxRate.match(self.tax_zone).any? { |rate| rate.calculator_type == "Spree::Calculator::TaxCloudCalculator" }
+    tax_zone.tax_rates.any? { |rate| rate.calculator_type == "Spree::Calculator::TaxCloudCalculator" }
   end
 
   def log_tax_cloud(response)
