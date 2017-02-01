@@ -312,7 +312,7 @@ describe 'Checkout', js: true do
   end
 
   def test_case_1a_address
-    stock_location_address = Spree::Address.new(
+    Spree::Address.new(
     firstname: "John",
     lastname: "Doe",
     address1: "1 3rd Street",
@@ -337,7 +337,7 @@ describe 'Checkout', js: true do
   end
 
   def test_case_2a_address
-    stock_location_address = Spree::Address.new(
+    Spree::Address.new(
     firstname: "John",
     lastname: "Doe",
     address1: "75 Rev Martin Luther King Jr Drive",
@@ -353,7 +353,7 @@ describe 'Checkout', js: true do
   end
 
   def test_case_3_address
-    stock_location_address = Spree::Address.new(
+    Spree::Address.new(
     firstname: "John",
     lastname: "Doe",
     address1: "2300 N Lincoln Blvd",
@@ -365,7 +365,7 @@ describe 'Checkout', js: true do
   end
 
   def test_case_6_address
-    stock_location_address = Spree::Address.new(
+    Spree::Address.new(
     firstname: "John",
     lastname: "Doe",
     address1: "384 Northyards Blvd NW",
