@@ -23,6 +23,7 @@ describe 'Checkout', js: true do
     return zone
   end
 
+  let!(:store) { create(:store) }
   let!(:shipping_calculator) { create(:calculator) }
   # default calculator in the Spree factory is flat rate of $10, which is exactly what we want
   let!(:shipping_method) { create(:shipping_method, tax_category_id: 1, calculator: shipping_calculator, zones: [zone, non_us_zone]) }
