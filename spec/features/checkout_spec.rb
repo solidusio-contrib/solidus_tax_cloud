@@ -43,8 +43,6 @@ describe 'Checkout', js: true do
     click_button "Checkout"
 
     fill_in "order_email", with: "test@example.com"
-    click_button "Continue"
-
     fill_in_address(alabama_address)
     fill_in "order_bill_address_attributes_zipcode", with: '12345'
 
@@ -60,8 +58,6 @@ describe 'Checkout', js: true do
     click_button "Checkout"
 
     fill_in "order_email", with: "test@example.com"
-    click_button "Continue"
-
     fill_in_address(alabama_address)
     Spree::Product.where(name: "RoR Mug").first.update_attributes(sku: "")
 
@@ -74,7 +70,6 @@ describe 'Checkout', js: true do
     click_button "Checkout"
 
     fill_in "order_email", with: "test@example.com"
-    click_button "Continue"
     fill_in_address(alabama_address)
     click_button "Save and Continue"
     click_button "Save and Continue"
@@ -89,7 +84,6 @@ describe 'Checkout', js: true do
     click_button "Checkout"
 
     fill_in "order_email", with: "test@example.com"
-    click_button "Continue"
     fill_in_address(alabama_address)
     click_button "Save and Continue"
     click_button "Save and Continue"
@@ -106,7 +100,6 @@ describe 'Checkout', js: true do
     click_button "Checkout"
 
     fill_in "order_email", with: "test@example.com"
-    click_button "Continue"
     fill_in_address(uk_address)
 
     click_button "Save and Continue"
