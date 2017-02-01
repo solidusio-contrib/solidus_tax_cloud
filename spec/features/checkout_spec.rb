@@ -284,7 +284,7 @@ describe 'Checkout', js: true do
     select address.country.name, from: "#{fieldname}_country_id"
 
     # Wait for the ajax to complete for the states selector.
-    Timeout.timeout(Capybara.default_wait_time) do
+    Timeout.timeout(Capybara.default_max_wait_time) do
       loop do
         break if page.evaluate_script("jQuery.active").to_i == 0
       end
