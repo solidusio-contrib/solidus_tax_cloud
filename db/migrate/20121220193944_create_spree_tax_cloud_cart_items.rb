@@ -1,4 +1,4 @@
-class CreateSpreeTaxCloudCartItems < ActiveRecord::Migration
+class CreateSpreeTaxCloudCartItems < ActiveRecord::Migration[4.2]
   def change
     create_table :spree_tax_cloud_cart_items do |t|
       t.integer :index
