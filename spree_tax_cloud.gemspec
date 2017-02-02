@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = 'Spree extension providing Tax Cloud services'
   s.description = 'Spree extension for providing Tax Cloud services in USA.'
 
-  s.required_ruby_version = '>= 1.9.3'
+  s.required_ruby_version = '>= 2.2.2'
 
   s.add_dependency 'solidus_api'
   s.add_dependency 'solidus_backend'
