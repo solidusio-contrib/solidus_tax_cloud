@@ -150,7 +150,7 @@ describe 'Checkout', js: true do
     page.should have_content(/Sales Tax \$0.95/i)
   end
 
-  it 'TaxCloud Test Case 2a: If all items in cart are tax ecempt, shipping is not taxed (in some states)' do
+  it 'TaxCloud Test Case 2a: If all items in cart are tax exempt, shipping is not taxed (in some states)' do
     add_to_cart("Shirt")
     click_button "Checkout"
 
