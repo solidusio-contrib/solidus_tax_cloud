@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 version = File.read(File.expand_path("../SPREE_TAXCLOUD_VERSION",__FILE__)).strip
 
 Gem::Specification.new do |s|
