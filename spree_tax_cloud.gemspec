@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Jerrold Thompson"]
   s.email       = 'jet@whidbey.com'
   s.homepage    = 'https://github.com/spree-contrib/spree_tax_cloud.git'
-  s.summary     = 'Spree extension providing Tax Cloud services'
-  s.description = 'Spree extension for providing Tax Cloud services in USA.'
+  s.summary     = 'Solidus extension providing Tax Cloud services'
+  s.description = 'Solidus extension for providing Tax Cloud services in USA.'
 
   s.required_ruby_version = '>= 2.2.2'
 
