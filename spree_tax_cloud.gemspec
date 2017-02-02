@@ -1,10 +1,8 @@
-version = File.read(File.expand_path("../SPREE_TAXCLOUD_VERSION",__FILE__)).strip
-
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
 
   s.name        = 'spree_tax_cloud'
-  s.version     =  version
+  s.version     =  '2.1.0'
   s.authors     = ["Jerrold Thompson"]
   s.email       = 'jet@whidbey.com'
   s.homepage    = 'https://github.com/spree-contrib/spree_tax_cloud.git'
