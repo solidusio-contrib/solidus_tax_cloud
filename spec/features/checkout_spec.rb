@@ -152,21 +152,24 @@ describe 'Checkout', js: true do
 
   it 'TaxCloud Test Case 2a: If all items in cart are tax exempt, shipping is not taxed (in some states)' do
     add_to_cart("Shirt")
+    page.should have_content(/Total \$10/i)
     click_button "Checkout"
 
-    fill_in "order_email", with: "test@example.com"
-    click_button "Continue"
     page.should have_content(/Item Total: \$10/i)
+    fill_in "order_email", with: "test@example.com"
     fill_in_address(test_case_2a_address)
     click_button "Save and Continue"
 
     page.should_not have_content(/Address Verification Failed/i)
+    page.should have_content(/Item Total: \$10/i)
+    page.should have_content(/Order Total: \$20/i)
     click_button "Save and Continue"
 
     page.should_not have_content(/Sales Tax/i)
+    page.should have_content(/Item Total: \$10/i)
     page.should have_content(/Order Total: \$20/i)
-
     click_on "Save and Continue"
+    
     click_button "Place Order"
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
