@@ -12,4 +12,8 @@ Spree::Shipment.class_eval do
       "#{cache_version}--from:#{stock_location.cache_version}--to:#{order.shipping_address.cache_version}"
     end
   end
+
+  def price_with_discounts
+    pre_tax_amount
+  end
 end
