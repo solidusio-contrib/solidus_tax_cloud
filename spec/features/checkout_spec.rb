@@ -30,6 +30,8 @@ describe 'Checkout', js: true do
   let!(:mug) { create(:product, name: 'RoR Mug', price: 10) }
   let!(:shirt) { create(:product, name: 'Shirt', price: 10, tax_cloud_tic: '20010') }
   let!(:payment_method) { create(:check_payment_method) }
+  let!(:item_promotion) { create(:promotion, :with_line_item_adjustment, code: 'AAAA', adjustment_rate: 5) }
+  let!(:shipping_promotion) { create(:promotion, :with_order_adjustment, code: 'BBBB') }
 
   let!(:tax_rate) { create(:tax_rate, amount: 0, name: 'Sales Tax', zone: zone, calculator: Spree::Calculator::TaxCloudCalculator.create, tax_category: Spree::TaxCategory.first, show_rate_in_label: false) }
   let!(:flat_tax_rate) { create(:tax_rate, amount: 0.1, name: 'Flat Sales Tax', zone: non_us_zone, tax_category: Spree::TaxCategory.first, show_rate_in_label: false) }
@@ -197,7 +199,10 @@ describe 'Checkout', js: true do
     fill_in_address(test_case_2b_address)
     click_button 'Save and Continue'
 
-    click_button 'Save and Continue'
+    page.should have_content(/Sales Tax \$1.52/i)
+    page.should have_content(/Order Total: \$31.52/i)
+    page.should_not have_content(/Address Verification Failed/i)
+    click_button "Save and Continue"
 
     expect(page).to have_content(/Sales Tax\s\$1.58/i)
     expect(page).to have_content(/Order Total:\s\$31.58/i)
@@ -242,6 +247,70 @@ describe 'Checkout', js: true do
     # TODO
   end
 
+  context "with price adjustments" do
+    it 'TaxCloud Test Case 3a: Item taxable, shipping not taxable' do
+      add_to_cart("Shirt")
+      click_button "Checkout"
+      fill_in "order_email", with: "test@example.com"
+      click_button "Continue"
+      page.should have_content(/Item Total: \$10/i)
+      fill_in_address(test_case_3_address)
+      click_button "Save and Continue"
+
+      page.should_not have_content(/Address Verification Failed/i)
+      click_button "Save and Continue"
+
+      page.should have_content(/Sales Tax \$0.84/i)
+      page.should have_content(/Order Total: \$20.84/i)
+
+      fill_in "Coupon Code", with: 'AAAA'
+      click_on "Save and Continue"
+
+      page.should have_content(/Promotion \(Promo\) \-\$5.00/i)
+      click_button "Place Order"
+
+      expect(current_path).to match(spree.order_path(Spree::Order.last))
+      page.should have_content(/Sales Tax \$0.42/i)
+
+      # $10 price + $10 shipping - $5 promo + $.42 tax
+      page.should have_content(/ORDER TOTAL: \$15.42/i)
+    end
+
+
+    # The problem with this test is that there isn't an easy way to have a promotion
+    # that targets shipping from what I can tell in the solidus code.
+    # it 'TaxCloud Test Case 3b: Item and shipping taxable with shipping promotion' do
+    #   add_to_cart("Shirt")
+    #   click_button "Checkout"
+    #
+    #   fill_in "order_email", with: "test@example.com"
+    #   click_button "Continue"
+    #   page.should have_content(/Item Total: \$10/i)
+    #   fill_in_address(test_case_6_address)
+    #   click_button "Save and Continue"
+    #   page.should have_content(/Sales Tax \$1.78/i)
+    #   page.should have_content(/Order Total: \$21.78/i)
+    #   page.should_not have_content(/Address Verification Failed/i)
+    #   click_button "Save and Continue"
+    #
+    #   page.should have_content(/Sales Tax \$1.78/i)
+    #   page.should have_content(/Order Total: \$21.78/i)
+    #
+    #   fill_in "Coupon Code", with: 'BBBB'
+    #   click_on "Save and Continue"
+    #
+    #   page.should have_content(/Sales Tax \$1.78/i)
+    #   page.should have_content(/Order Total: \$11.78/i)
+    #   click_button "Place Order"
+    #
+    #   expect(current_path).to match(spree.order_path(Spree::Order.last))
+    #
+    #   # $10 price + $10 shipping - $10 promo + $1.78 tax
+    #   page.should have_content(/Sales Tax \$1.78/i)
+    #   page.should have_content(/ORDER TOTAL: \$21.78/i)
+    # end
+  end
+
   it 'TaxCloud Test Case 6: Item and shipping taxable' do
     add_to_cart('Shirt')
     click_button 'Checkout'
@@ -250,10 +319,11 @@ describe 'Checkout', js: true do
     click_button 'Continue'
     expect(page).to have_content(/Item Total:\s\$10/i)
     fill_in_address(test_case_6_address)
-    click_button 'Save and Continue'
-
-    expect(page).not_to have_content(/Address Verification Failed/i)
-    click_button 'Save and Continue'
+    click_button "Save and Continue"
+    page.should have_content(/Sales Tax \$1.78/i)
+    page.should have_content(/Order Total: \$21.78/i)
+    page.should_not have_content(/Address Verification Failed/i)
+    click_button "Save and Continue"
 
     expect(page).to have_content(/Sales Tax\s\$1.78/i)
     expect(page).to have_content(/Order Total:\s\$21.78/i)
