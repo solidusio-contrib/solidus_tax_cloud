@@ -31,6 +31,8 @@ describe 'Checkout', js: true do
   let!(:shirt) { create(:product, name: 'Shirt', price: 10, tax_cloud_tic: '20010') }
   let!(:payment_method) { create(:check_payment_method) }
 
+  let!(:item_promotion) { create(:promotion, :with_line_item_adjustment, code: 'AAAA', adjustment_rate: 5) }
+
   let!(:tax_rate) { create(:tax_rate, amount: 0, name: 'Sales Tax', zone: zone, calculator: Spree::Calculator::TaxCloudCalculator.create, tax_category: Spree::TaxCategory.first, show_rate_in_label: false) }
   let!(:flat_tax_rate) { create(:tax_rate, amount: 0.1, name: 'Flat Sales Tax', zone: non_us_zone, tax_category: Spree::TaxCategory.first, show_rate_in_label: false) }
 
@@ -273,6 +275,32 @@ describe 'Checkout', js: true do
   #   NOTE: Solidus does not allow for the creation of negative-price products,
   #   rendering TaxCloud Test Case 7 moot.
   # end
+
+  context 'with discounts' do
+    it 'TaxCloud Test Case 3, with item discount' do
+      add_to_cart('Shirt')
+
+      fill_in 'order_coupon_code', with: 'AAAA'
+      click_button 'Update'
+      expect(page).not_to have_content('The coupon code you entered doesn\'t exist.')
+      expect(page).to have_content('The coupon code was successfully applied to your order.')
+      click_button 'Checkout'
+
+      fill_in 'order_email', with: 'test@example.com'
+      click_button 'Continue'
+      expect(page).to have_content(/Item Total:\s\$10/i)
+      page.should have_content(/Promotion \(Promo\)\s\-\$5.00/i)
+      expect(page).to have_content(/Order Total:\s\$5/i)
+      fill_in_address(test_case_3_address)
+      click_button 'Save and Continue'
+
+      expect(page).not_to have_content(/Address Verification Failed/i)
+      click_button 'Save and Continue'
+
+      expect(page).to have_content(/Sales Tax\s\$0.43/i)
+      expect(page).to have_content(/Order Total:\s\$15.43/i)
+    end
+  end
 
   def add_to_cart(item_name)
     visit spree.products_path
