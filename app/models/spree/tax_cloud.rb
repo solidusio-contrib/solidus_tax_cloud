@@ -48,7 +48,7 @@ module Spree
           index:    index,
           item_id:  item.try(:variant).try(:sku).present? ? item.try(:variant).try(:sku) : "LineItem #{item.id}",
           tic:      (item.product.tax_cloud_tic || Spree::Config.taxcloud_default_product_tic),
-          price:    item.price,
+          price:    item.price_with_discounts,
           quantity: item.quantity
         )
       when Spree::Shipment
@@ -56,7 +56,7 @@ module Spree
           index:    index,
           item_id:  "Shipment #{item.number}",
           tic:      Spree::Config.taxcloud_shipping_tic,
-          price:    item.cost,
+          price:    item.pre_tax_amount,
           quantity: 1
         )
       else
