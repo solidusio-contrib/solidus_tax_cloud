@@ -48,7 +48,7 @@ module Spree
 
       # Cache will expire if the order, any of its line items, or any of its shipments change.
       # When the cache expires, we will need to make another API call to TaxCloud.
-      Rails.cache.fetch(["TaxCloudRatesForItem", item.tax_cloud_cache_key], time_to_idle: 5.minutes) do
+      Rails.cache.fetch(["TaxCloudRatesForItem", item.tax_cloud_cache_key], time_to_idle: 30.minutes) do
         # In the case of a cache miss, we recompute the amounts for _all_ the LineItems and Shipments for this Order.
         # TODO An ideal implementation will break the order down by Shipments / Packages
         # and use the actual StockLocation address for each separately, and create Adjustments
@@ -64,10 +64,10 @@ module Spree
         index = -1 # array is zero-indexed
         # Retrieve line_items from lookup
         order.line_items.each do |line_item|
-          Rails.cache.write(["TaxCloudRatesForItem", line_item.tax_cloud_cache_key], lookup_cart_items[index += 1].tax_amount, time_to_idle: 5.minutes)
+          Rails.cache.write(["TaxCloudRatesForItem", line_item.tax_cloud_cache_key], lookup_cart_items[index += 1].tax_amount, time_to_idle: 30.minutes)
         end
         order.shipments.each do |shipment|
-          Rails.cache.write(["TaxCloudRatesForItem", shipment.tax_cloud_cache_key], lookup_cart_items[index += 1].tax_amount, time_to_idle: 5.minutes)
+          Rails.cache.write(["TaxCloudRatesForItem", shipment.tax_cloud_cache_key], lookup_cart_items[index += 1].tax_amount, time_to_idle: 30.minutes)
         end
 
         # Lastly, return the particular rate that we were initially looking for
