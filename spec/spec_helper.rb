@@ -7,6 +7,8 @@ require 'database_cleaner'
 require 'factory_girl'
 FactoryGirl.find_definitions
 require 'ffaker'
+require 'capybara/rspec'
+require 'capybara-screenshot/rspec'
 
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
 
