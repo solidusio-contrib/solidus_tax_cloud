@@ -350,10 +350,7 @@ describe 'Checkout', js: true do
     zipcode: "55155",
     phone: "(555) 5555-555")
   end
-
-  def test_case_2b_address
-    test_case_2a_address
-  end
+  alias_method :test_case_2b_address, :test_case_2a_address
 
   def test_case_3_address
     Spree::Address.new(
