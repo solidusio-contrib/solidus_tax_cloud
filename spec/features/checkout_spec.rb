@@ -165,7 +165,6 @@ describe 'Checkout', js: true do
     page.should have_content(/Order Total: \$20/i)
     click_button "Save and Continue"
 
-    page.should_not have_content(/Sales Tax/i)
     page.should have_content(/Item Total: \$10/i)
     page.should have_content(/Order Total: \$20/i)
     click_on "Save and Continue"
@@ -173,7 +172,7 @@ describe 'Checkout', js: true do
     click_button "Place Order"
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
-    page.should_not have_content(/Sales Tax/i)
+    page.should have_content(/Sales Tax \$0.00/i)
     page.should have_content(/ORDER TOTAL: \$20/i)
   end
 
