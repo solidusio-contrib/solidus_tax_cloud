@@ -188,9 +188,6 @@ describe 'Checkout', js: true do
     fill_in_address(test_case_2b_address)
     click_button "Save and Continue"
 
-    page.should have_content(/Sales Tax \$0.76/i)
-    page.should have_content(/Order Total: \$30.76/i)
-    page.should_not have_content(/Address Verification Failed/i)
     click_button "Save and Continue"
 
     page.should have_content(/Sales Tax \$1.52/i)
@@ -251,8 +248,6 @@ describe 'Checkout', js: true do
     fill_in_address(test_case_6_address)
     click_button "Save and Continue"
 
-    page.should have_content(/Sales Tax \$0.80/i)
-    page.should have_content(/Order Total: \$20.80/i)
     page.should_not have_content(/Address Verification Failed/i)
     click_button "Save and Continue"
 
