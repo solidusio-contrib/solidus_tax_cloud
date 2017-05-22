@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
 
   s.name        = 'spree_tax_cloud'
-  s.version     =  '2.1.0'
+  s.version     =  '2.2.0'
   s.authors     = ["Jerrold Thompson"]
   s.email       = 'jet@whidbey.com'
   s.homepage    = 'https://github.com/spree-contrib/spree_tax_cloud.git'
@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'solidus_api'
   s.add_dependency 'solidus_backend'
-  s.add_dependency 'solidus_core', '~> 2.1.0'
+  s.add_dependency 'solidus_core', '~> 2.2.0'
 
   s.add_runtime_dependency 'savon', '~> 2.5.1'
   s.add_runtime_dependency 'tax_cloud', '~> 0.3.0'
