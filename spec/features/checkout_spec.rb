@@ -169,7 +169,7 @@ describe 'Checkout', js: true do
     page.should have_content(/Item Total: \$10/i)
     page.should have_content(/Order Total: \$20/i)
     click_on "Save and Continue"
-    
+
     click_button "Place Order"
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
