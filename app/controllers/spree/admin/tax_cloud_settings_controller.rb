@@ -2,7 +2,6 @@ module Spree
   module Admin
     class TaxCloudSettingsController < Spree::Admin::BaseController
       def edit
-        @preferences_login = [:taxcloud_api_login_id, :taxcloud_api_key, :taxcloud_usps_user_id]
         @preferences_tic = [:taxcloud_default_product_tic, :taxcloud_shipping_tic]
       end
 
