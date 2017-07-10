@@ -2,14 +2,14 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
 
   s.name        = 'spree_tax_cloud'
-  s.version     =  '2.2.0'
+  s.version     =  '2.2.1'
   s.authors     = ["Jerrold Thompson"]
   s.email       = 'jet@whidbey.com'
   s.homepage    = 'https://github.com/spree-contrib/spree_tax_cloud.git'
   s.summary     = 'Solidus extension providing Tax Cloud services'
   s.description = 'Solidus extension for providing Tax Cloud services in USA.'
 
-  s.required_ruby_version = '>= 2.2.2'
+  s.required_ruby_version = '>= 2.4.0'
 
   s.add_dependency 'solidus_api'
   s.add_dependency 'solidus_backend'
