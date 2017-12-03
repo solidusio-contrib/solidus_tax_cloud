@@ -4,8 +4,8 @@ require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 
 require 'rspec/rails'
 require 'database_cleaner'
-require 'factory_girl'
-FactoryGirl.find_definitions
+require 'factory_bot'
+FactoryBot.find_definitions
 require 'ffaker'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
@@ -23,7 +23,7 @@ require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Spree::TestingSupport::Preferences
   config.include Spree::TestingSupport::Flash
   config.include Spree::TestingSupport::UrlHelpers
