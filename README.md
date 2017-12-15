@@ -38,14 +38,20 @@ Solidus Configuration
   bundle exec rails g spree_tax_cloud:install
   ```
 
-4. Restart your server
+4. Create a file Tax_Cloud.rb and add it to config/initializers
+
+  TaxCloud.configure do |config|
+    config.api_login_id = 'YOUR_TAX_CLOUD_API_LOGIN'
+    config.api_key = 'YOUR_TAX_CLOUD_API_KEY'
+  end
+
+5. Restart your server
 
   If your server was running, restart it so that it can find the assets properly.
 
 
 In the Admin section of Solidus, go to Settings > Store > TaxCloud Settings.
 
-Enter your `api_login_id` and `api_key`, and optionally your USPS login.
 You can also configure the default Product TIC and Shipping TIC for TaxCloud to use, although it is recommended to leave the defaults as is: `00000` for product default and `11010` for shipping default.
 
 All Products will default to the default product TIC specified here unless they are given an explicit value.
