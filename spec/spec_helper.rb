@@ -35,11 +35,12 @@ RSpec.configure do |config|
   # The account does not collect sales tax in the remaining sales tax states:
   # AL, AK, AZ, CA, CO, CT, DC, FL, HI, ID, IL, LA, ME, MD, MA, MS, MO, NM, NY, PA, SC, TX, and VA
   config.before :suite do
-    Spree::Config[:taxcloud_api_login_id] = '2D7D820'
-    Spree::Config[:taxcloud_api_key] = '0946110C-2AA9-4387-AD5C-4E1C551B8D0C'
+    TaxCloud.configure do |config|
+      config.api_login_id = '2D7D820'
+      config.api_key = '0946110C-2AA9-4387-AD5C-4E1C551B8D0C'
+    end
     Spree::Config[:taxcloud_default_product_tic]  = '00000'
     Spree::Config[:taxcloud_shipping_tic]         = '11010'
-    Spree::TaxCloud.update_config
   end
 
   config.before :each do
