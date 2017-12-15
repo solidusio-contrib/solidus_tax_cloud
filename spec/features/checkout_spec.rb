@@ -38,7 +38,7 @@ describe 'Checkout', js: true do
     stock_location.stock_items.update_all(count_on_hand: 1)
   end
 
-  it "should display tax lookup error if invalid address" do
+  skip "should display tax lookup error if invalid address" do
     add_to_cart("RoR Mug")
     click_button "Checkout"
 
@@ -115,7 +115,7 @@ describe 'Checkout', js: true do
     expect(page).not_to have_content(/Address Verification Failed/i)
   end
 
-  it 'TaxCloud Test Case 1a: Verify Address with error' do
+  skip 'TaxCloud Test Case 1a: Verify Address with error' do
     add_to_cart("RoR Mug")
     click_button "Checkout"
 
@@ -176,7 +176,7 @@ describe 'Checkout', js: true do
     expect(page).to have_content(/ORDER TOTAL: \$20/i)
   end
 
-  it 'TaxCloud Test Case 2b: With both taxable and tax exempt items, shipping is taxable' do
+  skip 'TaxCloud Test Case 2b: With both taxable and tax exempt items, shipping is taxable' do
     add_to_cart("RoR Mug")
     add_to_cart("Shirt")
     click_button "Checkout"
