@@ -8,7 +8,7 @@ TaxCloud Configuration
 
 1. Create an account with Tax Cloud ([https://taxcloud.net](https://taxcloud.net))...
 
-2. ...and get an `api_login_id` and `api_key`.
+2. ...and get an `api_id` and `api_key`.
 
 3. Go to `Your Account` >> `Tax States`, and turn on sales tax collection for the relevant states in which you want/need to collect sales tax. (**NOTE:** Unless states are explicitly added, TaxCloud will return zero sales tax by default for orders shipping to those states.)
 
@@ -38,21 +38,21 @@ Solidus Configuration
   bundle exec rails g spree_tax_cloud:install
   ```
 
-4. Create a file Tax_Cloud.rb and add it to config/initializers
+4. Create an initializer file with your TaxCloud credentials
 
+**config/initializers/tax_cloud.rb**
+  ```ruby
   TaxCloud.configure do |config|
-    config.api_login_id = 'YOUR_TAX_CLOUD_API_LOGIN'
+    config.api_login_id = 'YOUR_TAX_CLOUD_API_ID'
     config.api_key = 'YOUR_TAX_CLOUD_API_KEY'
   end
+  ```
 
 5. Restart your server
 
   If your server was running, restart it so that it can find the assets properly.
 
-
-In the Admin section of Solidus, go to Settings > Store > TaxCloud Settings.
-
-You can also configure the default Product TIC and Shipping TIC for TaxCloud to use, although it is recommended to leave the defaults as is: `00000` for product default and `11010` for shipping default.
+In the Admin section of Solidus, within Settings > Store > TaxCloud Settings, you can configure the default Product TIC and Shipping TIC for TaxCloud to use, although it is recommended to leave the defaults as is: `00000` for product default and `11010` for shipping default.
 
 All Products will default to the default product TIC specified here unless they are given an explicit value.
 Specific product-level TICs may be specified per-product in the Products section of the Solidus admin backend. If you are uncertain about the correct TIC for a product (whether it be clothing, books, etc.), taxability code information may be obtained from [Tax Cloud](https://taxcloud.net/tic/default.aspx).
