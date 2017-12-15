@@ -25,8 +25,7 @@ Solidus Configuration
 
   Note that the gem currently uses the Spree namespace internally (as does Solidus itself).
   
-  The `branch` option is important: it should match the version of Solidus you're using.
-  For example, use `v2.0` if you're using the Solidus `v2.0` branch or any of the 2.0.x gem releases.
+  **Update:** Following the guidelines of the Solidus core team, extensions are now meant to be compatible with multiple releases of Solidus. In the past, the branch (`v2.1`) of this extension was meant to match the version of Solidus being used. The new best practice is to use the `master` branch if you are using any version of Solidus from 2.2 onward.
 
 2. Install the gem using Bundler:
   ```ruby
