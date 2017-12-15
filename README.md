@@ -39,6 +39,8 @@ Solidus Configuration
 
 4. Create an initializer file with your TaxCloud credentials
 
+**If you are upgrading from version 2.x to version 3.x of this extension, the setting of preferences has changed, and your app will need to be updated accordingly.**
+
 **config/initializers/tax_cloud.rb**
   ```ruby
   TaxCloud.configure do |config|
