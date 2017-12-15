@@ -7,13 +7,7 @@ en:
     tax_cloud: Tax Cloud
     tax_cloud_settings: TaxCloud Settings
     tax_cloud_taxability_codes: Taxability Codes
-    tax_cloud_api_login_and_key: API Login and Key
-    taxcloud_api_login_id: Tax Cloud API Login ID
-    taxcloud_api_key: Tax Cloud API Key
     taxcloud_default_product_tic: Tax Cloud Product TIC
     taxcloud_shipping_tic: Tax Cloud Shipping TIC
-    taxcloud_usps_user_id: USPS User ID
     tax_cloud_tic: Tax Cloud TIC
-    usps_user: USPS User ID
-    usps_user_id: USPS API User ID
     zip_plus_4: Zip +4
