@@ -61,8 +61,8 @@ describe 'Models' do
     expect(result.cart_items.detect { |i| i.cart_item_index == 0 }.tax_amount).to eq 0
     expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0
 
-    capture = transaction.authorized_with_capture
-    expect(capture).to eq('OK')
+    # capture = transaction.authorized_with_capture
+    # expect(capture).to eq('OK')
   end
 
   it 'TaxCloud Test Case 2b: With both taxable and tax exempt items, shipping is taxable' do
@@ -80,8 +80,8 @@ describe 'Models' do
     expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0.7625
     expect(result.cart_items.detect { |i| i.cart_item_index == 2 }.tax_amount).to eq 0.7625
 
-    capture = transaction.authorized_with_capture
-    expect(capture).to eq('OK')
+    # capture = transaction.authorized_with_capture
+    # expect(capture).to eq('OK')
   end
 
   it 'TaxCloud Test Case 3: Item taxable, shipping not taxable' do
@@ -97,8 +97,8 @@ describe 'Models' do
     expect(result.cart_items.detect { |i| i.cart_item_index == 0 }.tax_amount).to eq 0.84
     expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0
 
-    capture = transaction.authorized_with_capture
-    expect(capture).to eq('OK')
+    # capture = transaction.authorized_with_capture
+    # expect(capture).to eq('OK')
   end
 
   skip 'TaxCloud Test Case 4: Return all items in previous order' do
