@@ -5,7 +5,6 @@ require 'spec_helper'
 # are coming from the TaxCloud gem or API, or whether they are related to the Solidus integration specifically.
 
 describe 'Models' do
-
   origin = TaxCloud::Address.new(address1: '3121 West Government Way', city: 'Seattle', state: 'WA', zip5: '98199', zip4: '1402')
 
   it 'TaxCloud Test Case 1a: Verify Address with error' do
@@ -40,7 +39,7 @@ describe 'Models' do
     result = transaction.lookup
 
     # From TaxCloud:
-    # The destination address used as-is will not give the most accurate rate ($1.00 in tax). 
+    # The destination address used as-is will not give the most accurate rate ($1.00 in tax).
     # The verified address will have a Plus4 Zip Code of 98059-8625 give a correct result
     # ($0.86 in tax).
 
@@ -59,11 +58,11 @@ describe 'Models' do
     result = transaction.lookup
 
     expect(result.cart_items.size).to eq 2
-    expect(result.cart_items.detect {|i| i.cart_item_index == 0}.tax_amount).to eq 0
-    expect(result.cart_items.detect {|i| i.cart_item_index == 1}.tax_amount).to eq 0
+    expect(result.cart_items.detect { |i| i.cart_item_index == 0 }.tax_amount).to eq 0
+    expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0
 
     capture = transaction.authorized_with_capture
-    expect(capture).to eq("OK")
+    expect(capture).to eq('OK')
   end
 
   it 'TaxCloud Test Case 2b: With both taxable and tax exempt items, shipping is taxable' do
@@ -77,12 +76,12 @@ describe 'Models' do
     result = transaction.lookup
 
     expect(result.cart_items.size).to eq 3
-    expect(result.cart_items.detect {|i| i.cart_item_index == 0}.tax_amount).to eq 0
-    expect(result.cart_items.detect {|i| i.cart_item_index == 1}.tax_amount).to eq 0.7625
-    expect(result.cart_items.detect {|i| i.cart_item_index == 2}.tax_amount).to eq 0.7625
+    expect(result.cart_items.detect { |i| i.cart_item_index == 0 }.tax_amount).to eq 0
+    expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0.7625
+    expect(result.cart_items.detect { |i| i.cart_item_index == 2 }.tax_amount).to eq 0.7625
 
     capture = transaction.authorized_with_capture
-    expect(capture).to eq("OK")
+    expect(capture).to eq('OK')
   end
 
   it 'TaxCloud Test Case 3: Item taxable, shipping not taxable' do
@@ -95,11 +94,11 @@ describe 'Models' do
     result = transaction.lookup
 
     expect(result.cart_items.size).to eq 2
-    expect(result.cart_items.detect {|i| i.cart_item_index == 0}.tax_amount).to eq 0.84
-    expect(result.cart_items.detect {|i| i.cart_item_index == 1}.tax_amount).to eq 0
+    expect(result.cart_items.detect { |i| i.cart_item_index == 0 }.tax_amount).to eq 0.84
+    expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0
 
     capture = transaction.authorized_with_capture
-    expect(capture).to eq("OK")
+    expect(capture).to eq('OK')
   end
 
   skip 'TaxCloud Test Case 4: Return all items in previous order' do
@@ -118,8 +117,8 @@ describe 'Models' do
     result = transaction.lookup
 
     expect(result.cart_items.size).to eq 2
-    expect(result.cart_items.detect {|i| i.cart_item_index == 0}.tax_amount).to eq 0.89
-    expect(result.cart_items.detect {|i| i.cart_item_index == 1}.tax_amount).to eq 0.89
+    expect(result.cart_items.detect { |i| i.cart_item_index == 0 }.tax_amount).to eq 0.89
+    expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0.89
   end
 
   it 'TaxCloud Test Case 7: Handling errors' do
@@ -129,10 +128,10 @@ describe 'Models' do
     transaction = TaxCloud::Transaction.new(customer_id: 'Cust0007', cart_id: 'Cart0007', cart_items: cart_items, origin: origin, destination: destination)
 
     expect { transaction.lookup }.to raise_error(TaxCloud::Errors::ApiError)
-    
+
     begin
       transaction.lookup
-    rescue => e
+    rescue StandardError => e
       expect(e.problem).to eq('Cart Item 0 has a negative Price (-5).  Only positive values can be used')
     end
   end

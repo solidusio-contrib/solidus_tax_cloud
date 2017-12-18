@@ -1,10 +1,10 @@
 Spree::Order.class_eval do
-  self.state_machine.after_transition to: :complete, do: :capture_tax_cloud
+  state_machine.after_transition to: :complete, do: :capture_tax_cloud
 
   def capture_tax_cloud
     return unless is_taxed_using_tax_cloud?
     response = Spree::TaxCloud.transaction_from_order(self).authorized_with_capture
-    if response != "OK"
+    if response != 'OK'
       Rails.logger.error "ERROR: TaxCloud returned an order capture response of #{response}."
     end
     log_tax_cloud(response)
@@ -17,7 +17,7 @@ Spree::Order.class_eval do
   # Note that we explicitly use ship_address instead of tax_address,
   # as per compliance with Tax Cloud instructions.
   def is_taxed_using_tax_cloud?
-    Spree::TaxRate.for_address(ship_address).any? { |rate| rate.calculator_type == "Spree::Calculator::TaxCloudCalculator" }
+    Spree::TaxRate.for_address(ship_address).any? { |rate| rate.calculator_type == 'Spree::Calculator::TaxCloudCalculator' }
   end
 
   def log_tax_cloud(response)

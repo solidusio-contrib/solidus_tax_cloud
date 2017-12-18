@@ -17,12 +17,12 @@ module Spree
         raise 'TaxCloud cannot calculate inclusive sales taxes.'
       else
         round_to_two_places(tax_for_item(item))
-        # TODO take discounted_amount into account. This is a problem because TaxCloud API does not take discounts nor does it return percentage rates.
+        # TODO: take discounted_amount into account. This is a problem because TaxCloud API does not take discounts nor does it return percentage rates.
       end
     end
 
-    alias_method :compute_shipment, :compute_shipment_or_line_item
-    alias_method :compute_line_item, :compute_shipment_or_line_item
+    alias compute_shipment compute_shipment_or_line_item
+    alias compute_line_item compute_shipment_or_line_item
 
     def compute_shipping_rate(shipping_rate)
       if rate.included_in_price
@@ -30,11 +30,11 @@ module Spree
       else
         # Sales tax will be applied to the Shipment itself, rather than to the Shipping Rates.
         # Note that this method is called from ShippingRate.display_price, so if we returned
-        # the shipping sales tax here, it would display as part of the display_price of the 
+        # the shipping sales tax here, it would display as part of the display_price of the
         # ShippingRate, which is not consistent with how US sales tax typically works -- i.e.,
         # it is an additional amount applied to a sale at the end, rather than being part of
         # the displayed cost of a good or service.
-        return 0
+        0
       end
     end
 
@@ -48,7 +48,7 @@ module Spree
 
       # Cache will expire if the order, any of its line items, or any of its shipments change.
       # When the cache expires, we will need to make another API call to TaxCloud.
-      Rails.cache.fetch(["TaxCloudRatesForItem", item.tax_cloud_cache_key], time_to_idle: 30.minutes) do
+      Rails.cache.fetch(['TaxCloudRatesForItem', item.tax_cloud_cache_key], time_to_idle: 30.minutes) do
         # In the case of a cache miss, we recompute the amounts for _all_ the LineItems and Shipments for this Order.
         # TODO An ideal implementation will break the order down by Shipments / Packages
         # and use the actual StockLocation address for each separately, and create Adjustments
@@ -64,14 +64,14 @@ module Spree
         index = -1 # array is zero-indexed
         # Retrieve line_items from lookup
         order.line_items.each do |line_item|
-          Rails.cache.write(["TaxCloudRatesForItem", line_item.tax_cloud_cache_key], lookup_cart_items[index += 1].tax_amount, time_to_idle: 30.minutes)
+          Rails.cache.write(['TaxCloudRatesForItem', line_item.tax_cloud_cache_key], lookup_cart_items[index += 1].tax_amount, time_to_idle: 30.minutes)
         end
         order.shipments.each do |shipment|
-          Rails.cache.write(["TaxCloudRatesForItem", shipment.tax_cloud_cache_key], lookup_cart_items[index += 1].tax_amount, time_to_idle: 30.minutes)
+          Rails.cache.write(['TaxCloudRatesForItem', shipment.tax_cloud_cache_key], lookup_cart_items[index += 1].tax_amount, time_to_idle: 30.minutes)
         end
 
         # Lastly, return the particular rate that we were initially looking for
-        Rails.cache.read(["TaxCloudRatesForItem", item.tax_cloud_cache_key])
+        Rails.cache.read(['TaxCloudRatesForItem', item.tax_cloud_cache_key])
       end
     end
   end

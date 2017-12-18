@@ -5,7 +5,7 @@ Spree::Product.class_eval do
   def tax_cloud_tic
     read_attribute(:tax_cloud_tic) || Spree::Config.taxcloud_default_product_tic
   end
-  
+
   # Empty strings are written as nil (which avoids the format validation)
   def tax_cloud_tic=(tic)
     write_attribute(:tax_cloud_tic, tic.present? ? tic : nil)
