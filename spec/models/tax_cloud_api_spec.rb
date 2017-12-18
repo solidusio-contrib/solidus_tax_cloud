@@ -77,8 +77,8 @@ describe 'Models' do
 
     expect(result.cart_items.size).to eq 3
     expect(result.cart_items.detect { |i| i.cart_item_index == 0 }.tax_amount).to eq 0
-    expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0.7625
-    expect(result.cart_items.detect { |i| i.cart_item_index == 2 }.tax_amount).to eq 0.7625
+    expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0.79
+    expect(result.cart_items.detect { |i| i.cart_item_index == 2 }.tax_amount).to eq 0.79
 
     # capture = transaction.authorized_with_capture
     # expect(capture).to eq('OK')

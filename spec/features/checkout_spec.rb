@@ -189,20 +189,15 @@ describe 'Checkout', js: true do
 
     click_button 'Save and Continue'
 
-    expect(page).to have_content(/Sales Tax \$1.52/i)
-    expect(page).to have_content(/Order Total: \$31.52/i)
-    # The argument could be made that two $0.7625 tax charges sum to
-    # $1.525, which rounds up to $1.53. However, as confirmed in 7/14/14
-    # conversation with TaxCloud CEO David Campbell, $1.52 is the correct
-    # figure. The tax is NOT summed and then rounded,
-    # but rather is rounded per-line-item, then summed.
+    expect(page).to have_content(/Sales Tax \$1.58/i)
+    expect(page).to have_content(/Order Total: \$31.58/i)
 
     click_on 'Save and Continue'
     click_button 'Place Order'
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
-    expect(page).to have_content(/Sales Tax \$1.52/i)
-    expect(page).to have_content(/ORDER TOTAL: \$31.52/i)
+    expect(page).to have_content(/Sales Tax \$1.58/i)
+    expect(page).to have_content(/ORDER TOTAL: \$31.58/i)
   end
 
   it 'TaxCloud Test Case 3: Item taxable, shipping not taxable' do
