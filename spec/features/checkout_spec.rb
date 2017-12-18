@@ -176,7 +176,7 @@ describe 'Checkout', js: true do
     expect(page).to have_content(/ORDER TOTAL: \$20/i)
   end
 
-  skip 'TaxCloud Test Case 2b: With both taxable and tax exempt items, shipping is taxable' do
+  it 'TaxCloud Test Case 2b: With both taxable and tax exempt items, shipping is taxable' do
     add_to_cart('RoR Mug')
     add_to_cart('Shirt')
     click_button 'Checkout'
