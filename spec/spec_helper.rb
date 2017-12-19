@@ -11,19 +11,11 @@ require 'pry'
 
 require 'spree/testing_support/factories'
 require 'spree/testing_support/capybara_ext'
-require 'spree/testing_support/authorization_helpers'
-require 'spree/testing_support/preferences'
-require 'spree/testing_support/flash'
-require 'spree/testing_support/url_helpers'
 
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
-  config.include Spree::TestingSupport::Preferences
-  config.include Spree::TestingSupport::Flash
-  config.include Spree::TestingSupport::UrlHelpers
-
   # Official verification and test harness login credentials provided 7/8/14
   # by David Campbell of The Federal Tax Authority.
   # This account is configured to collect sales tax in the 24 SSUTA states:
