@@ -7,6 +7,7 @@ require 'database_cleaner'
 require 'factory_bot'
 FactoryBot.find_definitions
 require 'ffaker'
+require 'pry'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 
