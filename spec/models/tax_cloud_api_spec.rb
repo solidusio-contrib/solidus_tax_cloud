@@ -11,7 +11,7 @@ describe 'Models' do
     destination = TaxCloud::Address.new(address1: '1 3rd Street', city: 'Seattle', state: 'WA', zip5: '98001')
     cart_items = []
     cart_items << TaxCloud::CartItem.new(index: 0, item_id: 'TestItem1', tic: '00000', quantity: 1, price: 10.00)
-    transaction = TaxCloud::Transaction.new(customer_id: 'Cust0001', cart_id: 'Cart0001', cart_items: cart_items, origin: origin, destination: destination)
+    transaction = test_transaction(cart_items, origin, destination)
 
     result = transaction.lookup
 
@@ -34,7 +34,7 @@ describe 'Models' do
     destination = TaxCloud::Address.new(address1: '16422 SE 128th St', city: 'Renton', state: 'WA', zip5: '98059')
     cart_items = []
     cart_items << TaxCloud::CartItem.new(index: 0, item_id: 'TestItem2', tic: '00000', quantity: 1, price: 10.00)
-    transaction = TaxCloud::Transaction.new(customer_id: 'Cust0002', cart_id: 'Cart0002', cart_items: cart_items, origin: origin, destination: destination)
+    transaction = test_transaction(cart_items, origin, destination)
 
     result = transaction.lookup
 
@@ -53,7 +53,7 @@ describe 'Models' do
     cart_items = []
     cart_items << TaxCloud::CartItem.new(index: 0, item_id: 'Shirt001', tic: '20010', quantity: 1, price: 10.00)
     cart_items << TaxCloud::CartItem.new(index: 1, item_id: 'Shipping', tic: '11010', quantity: 1, price: 10.00)
-    transaction = TaxCloud::Transaction.new(customer_id: 'Cust0003', cart_id: 'Cart0002a', order_id: 'Order002a', cart_items: cart_items, origin: origin, destination: destination)
+    transaction = test_transaction(cart_items, origin, destination)
 
     result = transaction.lookup
 
@@ -71,7 +71,7 @@ describe 'Models' do
     cart_items << TaxCloud::CartItem.new(index: 0, item_id: 'Shirt001', tic: '20010', quantity: 1, price: 10.00)
     cart_items << TaxCloud::CartItem.new(index: 1, item_id: 'Gadget001', tic: '00000', quantity: 1, price: 10.00)
     cart_items << TaxCloud::CartItem.new(index: 2, item_id: 'Shipping', tic: '11010', quantity: 1, price: 10.00)
-    transaction = TaxCloud::Transaction.new(customer_id: 'Cust0003', cart_id: 'Cart0002b', order_id: 'Order002b', cart_items: cart_items, origin: origin, destination: destination)
+    transaction = test_transaction(cart_items, origin, destination)
 
     result = transaction.lookup
 
@@ -89,7 +89,7 @@ describe 'Models' do
     cart_items = []
     cart_items << TaxCloud::CartItem.new(index: 0, item_id: 'Shirt002', tic: '20010', quantity: 1, price: 10.00)
     cart_items << TaxCloud::CartItem.new(index: 1, item_id: 'Shipping', tic: '11010', quantity: 1, price: 10.00)
-    transaction = TaxCloud::Transaction.new(customer_id: 'Cust0004', cart_id: 'Cart0004', order_id: 'Order004', cart_items: cart_items, origin: origin, destination: destination)
+    transaction = test_transaction(cart_items, origin, destination)
 
     result = transaction.lookup
 
@@ -112,7 +112,7 @@ describe 'Models' do
     cart_items = []
     cart_items << TaxCloud::CartItem.new(index: 0, item_id: 'Shirt003', tic: '20010', quantity: 1, price: 10.00)
     cart_items << TaxCloud::CartItem.new(index: 1, item_id: 'Shipping', tic: '11010', quantity: 1, price: 10.00)
-    transaction = TaxCloud::Transaction.new(customer_id: 'Cust0006', cart_id: 'Cart0006', cart_items: cart_items, origin: origin, destination: destination)
+    transaction = test_transaction(cart_items, origin, destination)
 
     result = transaction.lookup
 
@@ -125,7 +125,7 @@ describe 'Models' do
     destination = TaxCloud::Address.new(address1: '384 Northyards Blvd NW', city: 'Atlanta', state: 'GA', zip5: '30313', zip4: '2440')
     cart_items = []
     cart_items << TaxCloud::CartItem.new(index: 0, item_id: 'Gadget002', tic: '00000', quantity: 1, price: -5.00)
-    transaction = TaxCloud::Transaction.new(customer_id: 'Cust0007', cart_id: 'Cart0007', cart_items: cart_items, origin: origin, destination: destination)
+    transaction = test_transaction(cart_items, origin, destination)
 
     expect { transaction.lookup }.to raise_error(TaxCloud::Errors::ApiError)
 

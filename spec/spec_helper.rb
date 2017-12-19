@@ -8,10 +8,6 @@ require 'factory_bot'
 FactoryBot.find_definitions
 require 'ffaker'
 require 'pry'
-require 'capybara/rspec'
-require 'capybara-screenshot/rspec'
-
-Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
 
 require 'spree/testing_support/factories'
 require 'spree/testing_support/capybara_ext'
@@ -20,8 +16,7 @@ require 'spree/testing_support/preferences'
 require 'spree/testing_support/flash'
 require 'spree/testing_support/url_helpers'
 
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
+Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
