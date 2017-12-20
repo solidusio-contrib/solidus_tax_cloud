@@ -115,7 +115,7 @@ describe 'Checkout', js: true do
     expect(page).not_to have_content(/Address Verification Failed/i)
   end
 
-  skip 'TaxCloud Test Case 1a: Verify Address with error' do
+  it 'TaxCloud Test Case 1a: Verify Address with error' do
     add_to_cart('RoR Mug')
     click_button 'Checkout'
 
@@ -125,13 +125,18 @@ describe 'Checkout', js: true do
     fill_in_address(test_case_1a_address)
     click_button 'Save and Continue'
     # From TaxCloud:
-    # This address will not verify correctly (the VerifyAddress API call
-    # will return an error). That is okay. Occasionally an address cannot be verified. When
-    # that happens, pass the destination address as originally entered to Lookup. The address
-    # can still be passed to Lookup. The only error that should prevent an order from processing
-    # is when the USPSID used is not valid, or a customer provided zip code does not exist
-    # within the customer provided state (discussed later in Test Case 7, Handling Errors).
-    expect(page).to have_content(/Sales Tax \$1.00/i)
+    # This address will not verify correctly (the VerifyAddress API call will return an error).
+    # That is okay. Occasionally an address cannot be verified. When that happens, pass the
+    # destination address as originally entered to Lookup. The address can still be passed to
+    # Lookup. The only error that should prevent an order from proceeding is when a customer
+    # provided zip code does not exist within the customer provided state (discussed later in Test
+    # Case 7, Handling Errors).
+    #
+    # NOTE: In the API specs (from official TaxCloud Implementation Verification Guide), there is
+    # no shipping item sent to TaxCloud, and there is only a single $1.00 charge for the item.
+    # In this integration test, Solidus will automatically send the shipping information, which
+    # results in a second $1.00 charge, for a total tax of $2.00.
+    expect(page).to have_content(/Sales Tax \$2.00/i)
   end
 
   # TODO: This spec will fail until address verification is implemented in Spree::TaxCloud
