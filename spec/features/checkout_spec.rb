@@ -321,7 +321,7 @@ describe 'Checkout', js: true do
     Spree::Address.new(
       firstname: 'John',
       lastname: 'Doe',
-      address1: '354 Union Ave NE',
+      address1: '16422 SE 128th St',
       city: 'Renton',
       country: Spree::Country.find_by(name: 'United States of America'),
       state: Spree::State.find_by(abbr: 'WA'),
