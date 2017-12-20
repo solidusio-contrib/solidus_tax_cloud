@@ -102,9 +102,11 @@ describe 'Models' do
   end
 
   skip 'TaxCloud Test Case 4: Return all items in previous order' do
+    # TODO
   end
 
   skip 'TaxCloud Test Case 5: Return single item in previous order' do
+    # TODO
   end
 
   it 'TaxCloud Test Case 6: Item and shipping taxable' do
