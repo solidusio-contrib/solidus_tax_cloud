@@ -257,7 +257,8 @@ describe 'Checkout', js: true do
   end
 
   # it 'TaxCloud Test Case 7: Handling errors' do
-  # TODO
+  #   NOTE: Solidus does not allow for the creation of negative-price products,
+  #   rendering TaxCloud Test Case 7 moot.
   # end
 
   def add_to_cart(item_name)
