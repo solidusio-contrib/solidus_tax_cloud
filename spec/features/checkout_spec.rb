@@ -38,7 +38,7 @@ describe 'Checkout', js: true do
     stock_location.stock_items.update_all(count_on_hand: 1)
   end
 
-  skip 'should display tax lookup error if invalid address' do
+  it 'should display tax lookup error if invalid address' do
     add_to_cart('RoR Mug')
     click_button 'Checkout'
 
