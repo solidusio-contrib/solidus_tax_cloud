@@ -24,5 +24,5 @@ RSpec.configure do |config|
     Capybara::Poltergeist::Driver.new app, timeout: 90
   end
   Capybara.javascript_driver = :poltergeist
-  Capybara.default_max_wait_time = 90
+  Capybara.default_max_wait_time = 5
 end
