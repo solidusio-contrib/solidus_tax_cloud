@@ -28,7 +28,7 @@ describe 'Checkout', js: true do
   let!(:shipping_method) { create(:shipping_method, tax_category_id: 1, calculator: shipping_calculator, zones: [zone, non_us_zone]) }
   let!(:stock_location) { create(:stock_location, country_id: stock_location_address.country.id, state_id: stock_location_address.state.id, address1: stock_location_address.address1, city: stock_location_address.city, zipcode: stock_location_address.zipcode) }
   let!(:mug) { create(:product, name: 'RoR Mug', price: 10) }
-  let!(:shirt) { create(:product, name: 'Shirt', price: 10, tax_cloud_tic: 20_010) }
+  let!(:shirt) { create(:product, name: 'Shirt', price: 10, tax_cloud_tic: '20010') }
   let!(:payment_method) { create(:check_payment_method) }
 
   let!(:tax_rate) { create(:tax_rate, amount: 0, name: 'Sales Tax', zone: zone, calculator: Spree::Calculator::TaxCloudCalculator.create, tax_category: Spree::TaxCategory.first, show_rate_in_label: false) }
