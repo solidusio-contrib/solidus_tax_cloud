@@ -81,7 +81,7 @@ TODO
 
 Some work on the Solidus:TaxCloud extension is ongoing. Namely:
 
-- [ ] Address Validation: Support an address validation step via the Tax Cloud gem (which will fix the one non-passing spec at the moment).
+- [ ] Address Validation: Currently this extension will attempt to validate and correct the destination address (but not the origin) to compute the most accurate tax. However, the corrected address will not be saved in Solidus, and there is no user-facing UI step on the frontend (user specifies a shipping address) or the backend (admin specifies the stock location origin address). Ideally we would want to build out a step in the checkout flow as well as the admininstration backend showing the user the differences in the validated address (typically the zip+4 being added) and asking the user if they would like to update their address accordingly.
 
 - [ ] Split Shipments: Scope Tax Cloud transactions to Shipments rather than Orders, to account for the unusual cases where sales tax depends on the origin address as well as, or instead of, the destination address.
 

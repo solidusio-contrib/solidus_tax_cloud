@@ -139,8 +139,7 @@ describe 'Checkout', js: true do
     expect(page).to have_content(/Sales Tax \$2.00/i)
   end
 
-  # TODO: This spec will fail until address verification is implemented in Spree::TaxCloud
-  skip 'TaxCloud Test Case 1b: Verify Address without error' do
+  it 'TaxCloud Test Case 1b: Verify Address without error' do
     add_to_cart('RoR Mug')
     click_button 'Checkout'
 
@@ -150,9 +149,15 @@ describe 'Checkout', js: true do
     fill_in_address(test_case_1b_address)
     click_button 'Save and Continue'
     # From TaxCloud:
-    # The destination address used as-is will not give the most accurate
-    # rate. The verified address will give the correct result.
-    expect(page).to have_content(/Sales Tax \$0.86/i)
+    # The destination address used as-is will not give the most accurate rate ($1.00 in tax).
+    # The verified address will have a Plus4 Zip Code of 98059-8625 give a correct result
+    # ($0.86 in tax).
+    #
+    # NOTE: In the API specs (from official TaxCloud Implementation Verification Guide), there is
+    # no shipping item sent to TaxCloud, and there is only a single $0.86 charge for the item.
+    # In this integration test, Solidus will automatically send the shipping information, which
+    # results in a second $0.86 charge, for a total tax of $1.72.
+    expect(page).to have_content(/Sales Tax \$1.72/i)
   end
 
   it 'TaxCloud Test Case 2a: If all items in cart are tax exempt, shipping is not taxed (in some states)' do

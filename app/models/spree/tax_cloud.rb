@@ -4,12 +4,18 @@ module Spree
       stock_location = order.shipments.first.try(:stock_location) || Spree::StockLocation.active.where('city IS NOT NULL and state_id IS NOT NULL').first
       raise Spree.t(:ensure_one_valid_stock_location) unless stock_location
 
+      destination = address_from_spree_address(order.ship_address || order.billing_address)
+      begin
+        destination = destination.verify # Address validation may fail, and that is okay.
+      rescue ::TaxCloud::Errors::ApiError
+      end
+
       transaction = ::TaxCloud::Transaction.new(
         customer_id: order.user_id || order.email,
         order_id: order.number,
         cart_id: order.number,
         origin: address_from_spree_address(stock_location),
-        destination: address_from_spree_address(order.ship_address || order.billing_address)
+        destination: destination
       )
 
       index = -1 # array is zero-indexed
