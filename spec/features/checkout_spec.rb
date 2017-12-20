@@ -224,13 +224,13 @@ describe 'Checkout', js: true do
     expect(page).to have_content(/ORDER TOTAL: \$20.84/i)
   end
 
-  # it 'TaxCloud Test Case 4: Return all items in previous order' do
-  # TODO
-  # end
-  #
-  # it 'TaxCloud Test Case 5: Return single item in previous order' do
-  # TODO
-  # end
+  skip 'TaxCloud Test Case 4: Return all items in previous order' do
+    # TODO
+  end
+
+  skip 'TaxCloud Test Case 5: Return single item in previous order' do
+    # TODO
+  end
 
   it 'TaxCloud Test Case 6: Item and shipping taxable' do
     add_to_cart('Shirt')
