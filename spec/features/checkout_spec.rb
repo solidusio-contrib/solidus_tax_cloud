@@ -223,15 +223,15 @@ describe 'Checkout', js: true do
     expect(page).not_to have_content(/Address Verification Failed/i)
     click_button 'Save and Continue'
 
-    expect(page).to have_content(/Sales Tax \$0.84/i)
-    expect(page).to have_content(/Order Total: \$20.84/i)
+    expect(page).to have_content(/Sales Tax \$0.86/i)
+    expect(page).to have_content(/Order Total: \$20.86/i)
 
     click_on 'Save and Continue'
     click_button 'Place Order'
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
-    expect(page).to have_content(/Sales Tax \$0.84/i)
-    expect(page).to have_content(/ORDER TOTAL: \$20.84/i)
+    expect(page).to have_content(/Sales Tax \$0.86/i)
+    expect(page).to have_content(/ORDER TOTAL: \$20.86/i)
   end
 
   skip 'TaxCloud Test Case 4: Return all items in previous order' do

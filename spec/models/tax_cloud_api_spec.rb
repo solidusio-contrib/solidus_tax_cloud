@@ -94,7 +94,7 @@ describe 'Models' do
     result = transaction.lookup
 
     expect(result.cart_items.size).to eq 2
-    expect(result.cart_items.detect { |i| i.cart_item_index == 0 }.tax_amount).to eq 0.84
+    expect(result.cart_items.detect { |i| i.cart_item_index == 0 }.tax_amount).to eq 0.86
     expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0
 
     # capture = transaction.authorized_with_capture
