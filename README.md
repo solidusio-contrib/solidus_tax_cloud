@@ -3,6 +3,8 @@ Solidus::TaxCloud
 
 Solidus::TaxCloud is a US sales tax extension for Solidus using the Tax Cloud service.
 
+[![Build Status](https://travis-ci.org/solidusio-contrib/solidus_tax_cloud.svg?branch=master)](https://travis-ci.org/solidusio-contrib/solidus_tax_cloud)
+
 TaxCloud Configuration
 -----
 
