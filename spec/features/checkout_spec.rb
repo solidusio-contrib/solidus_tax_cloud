@@ -87,8 +87,8 @@ describe 'Checkout', js: true do
     fill_in_address(alabama_address)
     click_button 'Save and Continue'
     click_button 'Save and Continue'
-    expect(page).not_to have_content(/Sales Tax/i)
-    expect(page).to have_content(/Order Total: \$20.00/i) # Alabama orders are configured under this API key to have no tax
+    expect(page).not_to have_content(/Sales\sTax/i)
+    expect(page).to have_content(/Order Total:\s\$20.00/i) # Alabama orders are configured under this API key to have no tax
     visit spree.cart_path
     find('a.delete').click
     expect(page).to have_content(/Shopping Cart/i)
@@ -121,7 +121,7 @@ describe 'Checkout', js: true do
 
     fill_in 'order_email', with: 'test@example.com'
     click_button 'Continue'
-    expect(page).to have_content(/Order Total: \$10/i)
+    expect(page).to have_content(/Order Total:\s\$10/i)
     fill_in_address(test_case_1a_address)
     click_button 'Save and Continue'
     # From TaxCloud:
@@ -136,7 +136,7 @@ describe 'Checkout', js: true do
     # no shipping item sent to TaxCloud, and there is only a single $1.00 charge for the item.
     # In this integration test, Solidus will automatically send the shipping information, which
     # results in a second $1.00 charge, for a total tax of $2.00.
-    expect(page).to have_content(/Sales Tax \$2.00/i)
+    expect(page).to have_content(/Sales Tax\s\$2.00/i)
   end
 
   it 'TaxCloud Test Case 1b: Verify Address without error' do
@@ -145,7 +145,7 @@ describe 'Checkout', js: true do
 
     fill_in 'order_email', with: 'test@example.com'
     click_button 'Continue'
-    expect(page).to have_content(/Item Total: \$10/i)
+    expect(page).to have_content(/Item Total:\s\$10/i)
     fill_in_address(test_case_1b_address)
     click_button 'Save and Continue'
     # From TaxCloud:
@@ -157,33 +157,33 @@ describe 'Checkout', js: true do
     # no shipping item sent to TaxCloud, and there is only a single $0.86 charge for the item.
     # In this integration test, Solidus will automatically send the shipping information, which
     # results in a second $0.86 charge, for a total tax of $1.72.
-    expect(page).to have_content(/Sales Tax \$1.72/i)
+    expect(page).to have_content(/Sales Tax\s\$1.72/i)
   end
 
   it 'TaxCloud Test Case 2a: If all items in cart are tax exempt, shipping is not taxed (in some states)' do
     add_to_cart('Shirt')
-    expect(page).to have_content(/Total \$10/i)
+    expect(page).to have_content(/Total\s\$10/i)
     click_button 'Checkout'
 
-    expect(page).to have_content(/Item Total: \$10/i)
+    expect(page).to have_content(/Item Total:\s\$10/i)
     fill_in 'order_email', with: 'test@example.com'
     fill_in_address(test_case_2a_address)
     click_button 'Save and Continue'
 
     expect(page).not_to have_content(/Address Verification Failed/i)
-    expect(page).to have_content(/Item Total: \$10/i)
-    expect(page).to have_content(/Order Total: \$20/i)
+    expect(page).to have_content(/Item Total:\s\$10/i)
+    expect(page).to have_content(/Order Total:\s\$20/i)
     click_button 'Save and Continue'
 
-    expect(page).to have_content(/Item Total: \$10/i)
-    expect(page).to have_content(/Order Total: \$20/i)
+    expect(page).to have_content(/Item Total:\s\$10/i)
+    expect(page).to have_content(/Order Total:\s\$20/i)
     click_on 'Save and Continue'
 
     click_button 'Place Order'
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
-    expect(page).to have_content(/Sales Tax \$0.00/i)
-    expect(page).to have_content(/ORDER TOTAL: \$20/i)
+    expect(page).to have_content(/Sales Tax\s\$0.00/i)
+    expect(page).to have_content(/ORDER TOTAL:\s\$20/i)
   end
 
   it 'TaxCloud Test Case 2b: With both taxable and tax exempt items, shipping is taxable' do
@@ -193,21 +193,21 @@ describe 'Checkout', js: true do
 
     fill_in 'order_email', with: 'test@example.com'
     click_button 'Continue'
-    expect(page).to have_content(/Item Total: \$20/i)
+    expect(page).to have_content(/Item Total:\s\$20/i)
     fill_in_address(test_case_2b_address)
     click_button 'Save and Continue'
 
     click_button 'Save and Continue'
 
-    expect(page).to have_content(/Sales Tax \$1.58/i)
-    expect(page).to have_content(/Order Total: \$31.58/i)
+    expect(page).to have_content(/Sales Tax\s\$1.58/i)
+    expect(page).to have_content(/Order Total:\s\$31.58/i)
 
     click_on 'Save and Continue'
     click_button 'Place Order'
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
-    expect(page).to have_content(/Sales Tax \$1.58/i)
-    expect(page).to have_content(/ORDER TOTAL: \$31.58/i)
+    expect(page).to have_content(/Sales Tax\s\$1.58/i)
+    expect(page).to have_content(/ORDER TOTAL:\s\$31.58/i)
   end
 
   it 'TaxCloud Test Case 3: Item taxable, shipping not taxable' do
@@ -216,22 +216,22 @@ describe 'Checkout', js: true do
 
     fill_in 'order_email', with: 'test@example.com'
     click_button 'Continue'
-    expect(page).to have_content(/Item Total: \$10/i)
+    expect(page).to have_content(/Item Total:\s\$10/i)
     fill_in_address(test_case_3_address)
     click_button 'Save and Continue'
 
     expect(page).not_to have_content(/Address Verification Failed/i)
     click_button 'Save and Continue'
 
-    expect(page).to have_content(/Sales Tax \$0.86/i)
-    expect(page).to have_content(/Order Total: \$20.86/i)
+    expect(page).to have_content(/Sales Tax\s\$0.86/i)
+    expect(page).to have_content(/Order Total:\s\$20.86/i)
 
     click_on 'Save and Continue'
     click_button 'Place Order'
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
-    expect(page).to have_content(/Sales Tax \$0.86/i)
-    expect(page).to have_content(/ORDER TOTAL: \$20.86/i)
+    expect(page).to have_content(/Sales Tax\s\$0.86/i)
+    expect(page).to have_content(/ORDER TOTAL:\s\$20.86/i)
   end
 
   skip 'TaxCloud Test Case 4: Return all items in previous order' do
@@ -248,22 +248,22 @@ describe 'Checkout', js: true do
 
     fill_in 'order_email', with: 'test@example.com'
     click_button 'Continue'
-    expect(page).to have_content(/Item Total: \$10/i)
+    expect(page).to have_content(/Item Total:\s\$10/i)
     fill_in_address(test_case_6_address)
     click_button 'Save and Continue'
 
     expect(page).not_to have_content(/Address Verification Failed/i)
     click_button 'Save and Continue'
 
-    expect(page).to have_content(/Sales Tax \$1.78/i)
-    expect(page).to have_content(/Order Total: \$21.78/i)
+    expect(page).to have_content(/Sales Tax\s\$1.78/i)
+    expect(page).to have_content(/Order Total:\s\$21.78/i)
 
     click_on 'Save and Continue'
     click_button 'Place Order'
 
     expect(current_path).to match(spree.order_path(Spree::Order.last))
-    expect(page).to have_content(/Sales Tax \$1.78/i)
-    expect(page).to have_content(/ORDER TOTAL: \$21.78/i)
+    expect(page).to have_content(/Sales Tax\s\$1.78/i)
+    expect(page).to have_content(/ORDER TOTAL:\s\$21.78/i)
   end
 
   # it 'TaxCloud Test Case 7: Handling errors' do
