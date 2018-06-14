@@ -199,8 +199,8 @@ describe 'Checkout', js: true do
     fill_in_address(test_case_2b_address)
     click_button 'Save and Continue'
 
-    expect(page).to have_content(/Sales Tax\s\$1.52/i)
-    expect(page).to have_content(/Order Total:\s\$31.52/i)
+    expect(page).to have_content(/Sales Tax\s\$1.58/i)
+    expect(page).to have_content(/Order Total:\s\$31.58/i)
     expect(page).to_not have_content(/Address Verification Failed/i)
     click_button "Save and Continue"
 
