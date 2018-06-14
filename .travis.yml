@@ -3,16 +3,18 @@ language: ruby
 rvm:
   - 2.4.2
 env:
-  matrix:
-    - SOLIDUS_BRANCH=v2.2 DB=postgres
-    - SOLIDUS_BRANCH=v2.3 DB=postgres
-    - SOLIDUS_BRANCH=v2.4 DB=postgres
-    - SOLIDUS_BRANCH=v2.5 DB=postgres
-    - SOLIDUS_BRANCH=v2.6 DB=postgres
-    - SOLIDUS_BRANCH=master DB=postgres
-    - SOLIDUS_BRANCH=v2.2 DB=mysql
-    - SOLIDUS_BRANCH=v2.3 DB=mysql
-    - SOLIDUS_BRANCH=v2.4 DB=mysql
-    - SOLIDUS_BRANCH=v2.5 DB=mysql
-    - SOLIDUS_BRANCH=v2.6 DB=mysql
-    - SOLIDUS_BRANCH=master DB=mysql
+  - DB=postgres
+  - DB=mysql
+
+before_script:
+  - "bundle exec rake test_app"
+
+script: "bundle exec rspec"
+
+gemfile:
+  - gemfiles/solidus_2.2.x.gemfile
+  - gemfiles/solidus_2.3.x.gemfile
+  - gemfiles/solidus_2.4.x.gemfile
+  - gemfiles/solidus_2.5.x.gemfile
+  - gemfiles/solidus_2.6.x.gemfile
+  - gemfiles/solidus_master.gemfile

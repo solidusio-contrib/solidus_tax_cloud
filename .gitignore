@@ -17,6 +17,7 @@
 *.swo
 *.hold
 Gemfile.lock
+*.gemfile.lock
 spec/dummy
 tags
 *.orig
