@@ -199,8 +199,8 @@ describe 'Checkout', js: true do
     fill_in_address(test_case_2b_address)
     click_button 'Save and Continue'
 
-    expect(page).to have_content(/Sales Tax \$1.52/i)
-    expect(page).to have_content(/Order Total: \$31.52/i)
+    expect(page).to have_content(/Sales Tax\s\$1.52/i)
+    expect(page).to have_content(/Order Total:\s\$31.52/i)
     expect(page).to_not have_content(/Address Verification Failed/i)
     click_button "Save and Continue"
 
@@ -253,15 +253,15 @@ describe 'Checkout', js: true do
       click_button "Checkout"
       fill_in "order_email", with: "test@example.com"
       click_button "Continue"
-      expect(page).to have_content(/Item Total: \$10/i)
+      expect(page).to have_content(/Item Total:\s\$10/i)
       fill_in_address(test_case_3_address)
       click_button "Save and Continue"
 
       expect(page).to_not have_content(/Address Verification Failed/i)
       click_button "Save and Continue"
 
-      expect(page).to have_content(/Sales Tax \$0.84/i)
-      expect(page).to have_content(/Order Total: \$20.84/i)
+      expect(page).to have_content(/Sales Tax\s\$0.84/i)
+      expect(page).to have_content(/Order Total:\s\$20.84/i)
 
       fill_in "Coupon Code", with: 'AAAA'
       click_on "Save and Continue"
@@ -320,8 +320,8 @@ describe 'Checkout', js: true do
     expect(page).to have_content(/Item Total:\s\$10/i)
     fill_in_address(test_case_6_address)
     click_button "Save and Continue"
-    expect(page).to have_content(/Sales Tax \$1.78/i)
-    expect(page).to have_content(/Order Total: \$21.78/i)
+    expect(page).to have_content(/Sales Tax\s\$1.78/i)
+    expect(page).to have_content(/Order Total:\s\$21.78/i)
     expect(page).to_not have_content(/Address Verification Failed/i)
     click_button "Save and Continue"
 
