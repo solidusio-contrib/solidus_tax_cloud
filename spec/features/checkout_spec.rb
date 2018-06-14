@@ -260,20 +260,20 @@ describe 'Checkout', js: true do
       expect(page).to_not have_content(/Address Verification Failed/i)
       click_button "Save and Continue"
 
-      expect(page).to have_content(/Sales Tax\s\$0.84/i)
-      expect(page).to have_content(/Order Total:\s\$20.84/i)
+      expect(page).to have_content(/Sales Tax\s\$0.86/i)
+      expect(page).to have_content(/Order Total:\s\$20.86/i)
 
       fill_in "Coupon Code", with: 'AAAA'
       click_on "Save and Continue"
 
-      expect(page).to have_content(/Promotion \(Promo\) \-\$5.00/i)
+      expect(page).to have_content(/Promotion \(Promo\)\s\-\$5.00/i)
       click_button "Place Order"
 
       expect(current_path).to match(spree.order_path(Spree::Order.last))
-      expect(page).to have_content(/Sales Tax \$0.42/i)
+      expect(page).to have_content(/Sales Tax\s\$0.43/i)
 
-      # $10 price + $10 shipping - $5 promo + $.42 tax
-      expect(page).to have_content(/ORDER TOTAL: \$15.42/i)
+      # $10 price + $10 shipping - $5 promo + $.43 tax
+      expect(page).to have_content(/ORDER TOTAL:\s\$15.43/i)
     end
 
 
