@@ -33,8 +33,8 @@ describe 'Checkout', js: true do
   let!(:item_promotion) { create(:promotion, :with_line_item_adjustment, code: 'AAAA', adjustment_rate: 5) }
   let!(:shipping_promotion) { create(:promotion, :with_order_adjustment, code: 'BBBB') }
 
-  let!(:tax_rate) { create(:tax_rate, amount: 0, name: 'Sales Tax', zone: zone, calculator: Spree::Calculator::TaxCloudCalculator.create, tax_category: Spree::TaxCategory.first, show_rate_in_label: false) }
-  let!(:flat_tax_rate) { create(:tax_rate, amount: 0.1, name: 'Flat Sales Tax', zone: non_us_zone, tax_category: Spree::TaxCategory.first, show_rate_in_label: false) }
+  let!(:tax_rate) { create(:tax_rate, amount: 0, name: 'Sales Tax', zone: zone, calculator: Spree::Calculator::TaxCloudCalculator.create, tax_categories: [Spree::TaxCategory.first], show_rate_in_label: false) }
+  let!(:flat_tax_rate) { create(:tax_rate, amount: 0.1, name: 'Flat Sales Tax', zone: non_us_zone, tax_categories: [Spree::TaxCategory.first], show_rate_in_label: false) }
 
   before do
     stock_location.stock_items.update_all(count_on_hand: 1)
