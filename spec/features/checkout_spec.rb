@@ -31,7 +31,12 @@ describe 'Checkout', js: true do
   let!(:shirt) { create(:product, name: 'Shirt', price: 10, tax_cloud_tic: '20010') }
   let!(:payment_method) { create(:check_payment_method) }
   let!(:item_promotion) { create(:promotion, :with_line_item_adjustment, code: 'AAAA', adjustment_rate: 5) }
-  let!(:shipping_promotion) { create(:promotion, :with_order_adjustment, code: 'BBBB') }
+  let!(:shipping_promotion) do
+    promotion = create(:promotion, code: 'BBBB')
+    action = Spree::Promotion::Actions::FreeShipping.create!
+    promotion.actions << action
+    promotion.save!
+  end
 
   let!(:tax_rate) { create(:tax_rate, amount: 0, name: 'Sales Tax', zone: zone, calculator: Spree::Calculator::TaxCloudCalculator.create, tax_categories: [Spree::TaxCategory.first], show_rate_in_label: false) }
   let!(:flat_tax_rate) { create(:tax_rate, amount: 0.1, name: 'Flat Sales Tax', zone: non_us_zone, tax_categories: [Spree::TaxCategory.first], show_rate_in_label: false) }
@@ -245,11 +250,14 @@ describe 'Checkout', js: true do
       click_button "Checkout"
       fill_in "order_email", with: "test@example.com"
       click_button "Continue"
+
       expect(page).to have_content(/Item Total:\s\$10/i)
+
       fill_in_address(test_case_3_address)
       click_button "Save and Continue"
 
       expect(page).to_not have_content(/Address Verification Failed/i)
+
       click_button "Save and Continue"
 
       expect(page).to have_content(/Sales Tax\s\$0.86/i)
@@ -259,6 +267,7 @@ describe 'Checkout', js: true do
       click_on "Save and Continue"
 
       expect(page).to have_content(/Promotion \(Promo\)\s\-\$5.00/i)
+
       click_button "Place Order"
 
       expect(current_path).to match(spree.order_path(Spree::Order.last))
@@ -268,39 +277,40 @@ describe 'Checkout', js: true do
       expect(page).to have_content(/ORDER TOTAL:\s\$15.43/i)
     end
 
+    it 'TaxCloud Test Case 3b: Item and shipping taxable with shipping promotion' do
+      add_to_cart("Shirt")
+      click_button "Checkout"
+      fill_in "order_email", with: "test@example.com"
+      click_button "Continue"
 
-    # The problem with this test is that there isn't an easy way to have a promotion
-    # that targets shipping from what I can tell in the solidus code.
-    # it 'TaxCloud Test Case 3b: Item and shipping taxable with shipping promotion' do
-    #   add_to_cart("Shirt")
-    #   click_button "Checkout"
-    #
-    #   fill_in "order_email", with: "test@example.com"
-    #   click_button "Continue"
-    #   expect(page).to have_content(/Item Total: \$10/i)
-    #   fill_in_address(test_case_6_address)
-    #   click_button "Save and Continue"
-    #   expect(page).to have_content(/Sales Tax \$1.78/i)
-    #   expect(page).to have_content(/Order Total: \$21.78/i)
-    #   expect(page).to_not have_content(/Address Verification Failed/i)
-    #   click_button "Save and Continue"
-    #
-    #   expect(page).to have_content(/Sales Tax \$1.78/i)
-    #   expect(page).to have_content(/Order Total: \$21.78/i)
-    #
-    #   fill_in "Coupon Code", with: 'BBBB'
-    #   click_on "Save and Continue"
-    #
-    #   expect(page).to have_content(/Sales Tax \$1.78/i)
-    #   expect(page).to have_content(/Order Total: \$11.78/i)
-    #   click_button "Place Order"
-    #
-    #   expect(current_path).to match(spree.order_path(Spree::Order.last))
-    #
-    #   # $10 price + $10 shipping - $10 promo + $1.78 tax
-    #   expect(page).to have_content(/Sales Tax \$1.78/i)
-    #   expect(page).to have_content(/ORDER TOTAL: \$21.78/i)
-    # end
+      expect(page).to have_content(/Item Total:\s\$10/i)
+
+      fill_in_address(test_case_6_address)
+      click_button "Save and Continue"
+
+      expect(page).to have_content(/Sales Tax\s\$1.78/i)
+      expect(page).to have_content(/Order Total:\s\$21.78/i)
+      expect(page).to_not have_content(/Address Verification Failed/i)
+
+      click_button "Save and Continue"
+
+      expect(page).to have_content(/Sales Tax\s\$1.78/i)
+      expect(page).to have_content(/Order Total:\s\$21.78/i)
+
+      fill_in "Coupon Code", with: 'BBBB'
+      click_on "Save and Continue"
+
+      expect(page).to have_content(/Sales Tax\s\$0.89/i)
+      expect(page).to have_content(/Order Total:\s\$10.89/i)
+
+      click_button "Place Order"
+
+      expect(current_path).to match(spree.order_path(Spree::Order.last))
+
+      # $10 price + $10 shipping - $10 shipping promo + $1.78 tax
+      expect(page).to have_content(/Sales Tax\s\$0.89/i)
+      expect(page).to have_content(/ORDER TOTAL:\s\$10.89/i)
+    end
   end
 
   skip 'TaxCloud Test Case 4: Return all items in previous order' do
