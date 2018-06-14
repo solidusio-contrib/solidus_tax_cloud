@@ -199,9 +199,9 @@ describe 'Checkout', js: true do
     fill_in_address(test_case_2b_address)
     click_button 'Save and Continue'
 
-    page.should have_content(/Sales Tax \$1.52/i)
-    page.should have_content(/Order Total: \$31.52/i)
-    page.should_not have_content(/Address Verification Failed/i)
+    expect(page).to have_content(/Sales Tax \$1.52/i)
+    expect(page).to have_content(/Order Total: \$31.52/i)
+    expect(page).to_not have_content(/Address Verification Failed/i)
     click_button "Save and Continue"
 
     expect(page).to have_content(/Sales Tax\s\$1.58/i)
@@ -253,27 +253,27 @@ describe 'Checkout', js: true do
       click_button "Checkout"
       fill_in "order_email", with: "test@example.com"
       click_button "Continue"
-      page.should have_content(/Item Total: \$10/i)
+      expect(page).to have_content(/Item Total: \$10/i)
       fill_in_address(test_case_3_address)
       click_button "Save and Continue"
 
-      page.should_not have_content(/Address Verification Failed/i)
+      expect(page).to_not have_content(/Address Verification Failed/i)
       click_button "Save and Continue"
 
-      page.should have_content(/Sales Tax \$0.84/i)
-      page.should have_content(/Order Total: \$20.84/i)
+      expect(page).to have_content(/Sales Tax \$0.84/i)
+      expect(page).to have_content(/Order Total: \$20.84/i)
 
       fill_in "Coupon Code", with: 'AAAA'
       click_on "Save and Continue"
 
-      page.should have_content(/Promotion \(Promo\) \-\$5.00/i)
+      expect(page).to have_content(/Promotion \(Promo\) \-\$5.00/i)
       click_button "Place Order"
 
       expect(current_path).to match(spree.order_path(Spree::Order.last))
-      page.should have_content(/Sales Tax \$0.42/i)
+      expect(page).to have_content(/Sales Tax \$0.42/i)
 
       # $10 price + $10 shipping - $5 promo + $.42 tax
-      page.should have_content(/ORDER TOTAL: \$15.42/i)
+      expect(page).to have_content(/ORDER TOTAL: \$15.42/i)
     end
 
 
@@ -285,29 +285,29 @@ describe 'Checkout', js: true do
     #
     #   fill_in "order_email", with: "test@example.com"
     #   click_button "Continue"
-    #   page.should have_content(/Item Total: \$10/i)
+    #   expect(page).to have_content(/Item Total: \$10/i)
     #   fill_in_address(test_case_6_address)
     #   click_button "Save and Continue"
-    #   page.should have_content(/Sales Tax \$1.78/i)
-    #   page.should have_content(/Order Total: \$21.78/i)
-    #   page.should_not have_content(/Address Verification Failed/i)
+    #   expect(page).to have_content(/Sales Tax \$1.78/i)
+    #   expect(page).to have_content(/Order Total: \$21.78/i)
+    #   expect(page).to_not have_content(/Address Verification Failed/i)
     #   click_button "Save and Continue"
     #
-    #   page.should have_content(/Sales Tax \$1.78/i)
-    #   page.should have_content(/Order Total: \$21.78/i)
+    #   expect(page).to have_content(/Sales Tax \$1.78/i)
+    #   expect(page).to have_content(/Order Total: \$21.78/i)
     #
     #   fill_in "Coupon Code", with: 'BBBB'
     #   click_on "Save and Continue"
     #
-    #   page.should have_content(/Sales Tax \$1.78/i)
-    #   page.should have_content(/Order Total: \$11.78/i)
+    #   expect(page).to have_content(/Sales Tax \$1.78/i)
+    #   expect(page).to have_content(/Order Total: \$11.78/i)
     #   click_button "Place Order"
     #
     #   expect(current_path).to match(spree.order_path(Spree::Order.last))
     #
     #   # $10 price + $10 shipping - $10 promo + $1.78 tax
-    #   page.should have_content(/Sales Tax \$1.78/i)
-    #   page.should have_content(/ORDER TOTAL: \$21.78/i)
+    #   expect(page).to have_content(/Sales Tax \$1.78/i)
+    #   expect(page).to have_content(/ORDER TOTAL: \$21.78/i)
     # end
   end
 
@@ -320,9 +320,9 @@ describe 'Checkout', js: true do
     expect(page).to have_content(/Item Total:\s\$10/i)
     fill_in_address(test_case_6_address)
     click_button "Save and Continue"
-    page.should have_content(/Sales Tax \$1.78/i)
-    page.should have_content(/Order Total: \$21.78/i)
-    page.should_not have_content(/Address Verification Failed/i)
+    expect(page).to have_content(/Sales Tax \$1.78/i)
+    expect(page).to have_content(/Order Total: \$21.78/i)
+    expect(page).to_not have_content(/Address Verification Failed/i)
     click_button "Save and Continue"
 
     expect(page).to have_content(/Sales Tax\s\$1.78/i)
