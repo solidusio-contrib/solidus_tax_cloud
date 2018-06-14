@@ -239,14 +239,6 @@ describe 'Checkout', js: true do
     expect(page).to have_content(/ORDER TOTAL:\s\$20.86/i)
   end
 
-  skip 'TaxCloud Test Case 4: Return all items in previous order' do
-    # TODO
-  end
-
-  skip 'TaxCloud Test Case 5: Return single item in previous order' do
-    # TODO
-  end
-
   context "with price adjustments" do
     it 'TaxCloud Test Case 3a: Item taxable, shipping not taxable' do
       add_to_cart("Shirt")
@@ -309,6 +301,14 @@ describe 'Checkout', js: true do
     #   expect(page).to have_content(/Sales Tax \$1.78/i)
     #   expect(page).to have_content(/ORDER TOTAL: \$21.78/i)
     # end
+  end
+
+  skip 'TaxCloud Test Case 4: Return all items in previous order' do
+    # TODO
+  end
+
+  skip 'TaxCloud Test Case 5: Return single item in previous order' do
+    # TODO
   end
 
   it 'TaxCloud Test Case 6: Item and shipping taxable' do
