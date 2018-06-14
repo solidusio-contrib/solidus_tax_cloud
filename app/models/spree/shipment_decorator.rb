@@ -4,6 +4,6 @@ Spree::Shipment.class_eval do
   end
 
   def price_with_discounts
-    pre_tax_amount
+    total_excluding_vat
   end
 end
