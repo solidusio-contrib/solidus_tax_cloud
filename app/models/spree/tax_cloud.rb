@@ -53,7 +53,7 @@ module Spree
           index:    index,
           item_id:  "Shipment #{item.number}",
           tic:      Spree::Config.taxcloud_shipping_tic,
-          price:    item.total_excluding_vat,
+          price:    item.price_with_discounts,
           quantity: 1
         )
       else
