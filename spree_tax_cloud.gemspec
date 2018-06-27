@@ -11,10 +11,9 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.4.0'
 
-  s.add_dependency 'solidus_api'
-  s.add_dependency 'solidus_backend'
-  s.add_dependency 'solidus_core', ['>= 1.2.0', '< 3']
-
+  s.add_runtime_dependency 'solidus_api'
+  s.add_runtime_dependency 'solidus_backend'
+  s.add_runtime_dependency 'solidus_core', ['>= 1.2.0', '< 3']
   s.add_runtime_dependency 'savon', '~> 2.5.1'
   s.add_runtime_dependency 'tax_cloud', '~> 0.3.0'
 
