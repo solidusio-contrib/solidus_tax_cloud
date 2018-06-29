@@ -15,8 +15,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'solidus_backend'
   s.add_dependency 'solidus_core', ['>= 1.2.0', '< 3']
 
-  s.add_runtime_dependency 'savon', '~> 2.5.1'
-  s.add_runtime_dependency 'tax_cloud', '~> 0.3.0'
+  s.add_dependency 'savon', '~> 2.5.1'
+  s.add_dependency 'tax_cloud', '~> 0.3.0'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'coffee-rails'
