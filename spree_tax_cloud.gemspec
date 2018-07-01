@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'generator_spec'
   s.add_development_dependency 'poltergeist'
   s.add_development_dependency 'pry'
+  s.add_development_dependency 'pry-stack_explorer'
   s.add_development_dependency 'puma'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'sass-rails'
