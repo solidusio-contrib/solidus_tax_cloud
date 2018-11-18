@@ -17,7 +17,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'savon', '~> 2.12.0'
   s.add_dependency 'tax_cloud', '~> 0.3.0'
-  s.add_dependency 'rails', '< 5.2.0' # TODO: Relax this for full Solidus 2.6 support
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'coffee-rails'
