@@ -8,6 +8,8 @@ Spree::Shipment.class_eval do
   end
 
   def tax_cloud_cache_version
-    "#{cache_version}--from:#{stock_location.cache_version}--to:#{order.shipping_address.cache_version}"
+    if ActiveRecord::Base.try(:cache_versioning)
+      "#{cache_version}--from:#{stock_location.cache_version}--to:#{order.shipping_address.cache_version}"
+    end
   end
 end
