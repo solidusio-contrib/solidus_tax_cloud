@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.description = 'Solidus extension for providing Tax Cloud services in USA.'
 
   s.required_ruby_version = '>= 2.4.0'
-  
+
   s.add_dependency 'solidus_api'
   s.add_dependency 'solidus_backend'
   s.add_dependency 'solidus_core', ['>= 1.2.0', '< 3']
