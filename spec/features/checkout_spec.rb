@@ -353,11 +353,19 @@ describe 'Checkout', js: true do
       expect(page).to have_content(/Order Total:\s\$21.78/i)
 
       fill_in 'Coupon Code', with: 'BBBB'
-      click_button 'Save and Continue'
+      click_button 'Apply Code'
+      # Wait for the ajax to complete for the refresh.
+      Timeout.timeout(Capybara.default_max_wait_time) do
+        loop do
+          break if page.evaluate_script('jQuery.active').to_i == 0
+        end
+      end
+      expect(page).to have_content('Coupon code applied successfully.')
 
       expect(page).to have_content(/Sales Tax\s\$0.89/i)
       expect(page).to have_content(/Order Total:\s\$10.89/i)
 
+      click_button 'Save and Continue'
       click_button 'Place Order'
 
       expect(current_path).to match(spree.order_path(Spree::Order.last))
