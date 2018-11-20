@@ -137,4 +137,40 @@ describe 'Models' do
       expect(e.problem).to eq('Cart Item 0 has a negative Price (-5).  Only positive values can be used')
     end
   end
+
+  context 'with discounts' do
+    it 'TaxCloud Test Case 3, with item discount' do
+      destination = TaxCloud::Address.new(address1: '2300 N Lincoln Blvd', city: 'Oklahoma City', state: 'OK', zip5: '73105')
+      cart_items = []
+      cart_items << TaxCloud::CartItem.new(index: 0, item_id: 'Shirt002', tic: '20010', quantity: 1, price: 5.00)
+      cart_items << TaxCloud::CartItem.new(index: 1, item_id: 'Shipping', tic: '11010', quantity: 1, price: 10.00)
+      transaction = test_transaction(cart_items, origin, destination)
+
+      result = transaction.lookup
+
+      expect(result.cart_items.size).to eq 2
+      expect(result.cart_items.detect { |i| i.cart_item_index == 0 }.tax_amount).to eq 0.43
+      expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0
+
+      # capture = transaction.authorized_with_capture
+      # expect(capture).to eq('OK')
+    end
+
+    it 'TaxCloud Test Case 3, with item discount, multiple items' do
+      destination = TaxCloud::Address.new(address1: '2300 N Lincoln Blvd', city: 'Oklahoma City', state: 'OK', zip5: '73105')
+      cart_items = []
+      cart_items << TaxCloud::CartItem.new(index: 0, item_id: 'Shirt002', tic: '20010', quantity: 2, price: 7.50)
+      cart_items << TaxCloud::CartItem.new(index: 1, item_id: 'Shipping', tic: '11010', quantity: 2, price: 20.00)
+      transaction = test_transaction(cart_items, origin, destination)
+
+      result = transaction.lookup
+
+      expect(result.cart_items.size).to eq 2
+      expect(result.cart_items.detect { |i| i.cart_item_index == 0 }.tax_amount).to eq 1.29
+      expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0
+
+      # capture = transaction.authorized_with_capture
+      # expect(capture).to eq('OK')
+    end
+  end
 end
