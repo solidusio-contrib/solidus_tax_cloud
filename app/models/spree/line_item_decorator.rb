@@ -3,7 +3,7 @@ Spree::LineItem.class_eval do
     if ActiveRecord::Base.try(:cache_versioning)
       cache_key
     else
-      key = "Spree::LineItem #{id}: #{quantity}x<#{variant.cache_key}>@#{pre_tax_amount}#{currency}"
+      key = "Spree::LineItem #{id}: #{quantity}x<#{variant.cache_key}>@#{total_excluding_vat}#{currency}"
       if order.ship_address
         key << "shipped_to<#{order.ship_address.try(:cache_key)}>"
       elsif order.billing_address
@@ -14,7 +14,7 @@ Spree::LineItem.class_eval do
 
   def tax_cloud_cache_version
     if ActiveRecord::Base.try(:cache_versioning)
-      key = "Spree::LineItem #{id}: #{quantity}x<#{variant.cache_version}>@#{pre_tax_amount}#{currency}"
+      key = "Spree::LineItem #{id}: #{quantity}x<#{variant.cache_version}>@#{total_excluding_vat}#{currency}"
       if order.ship_address
         key << "shipped_to<#{order.ship_address.try(:cache_version)}>"
       elsif order.billing_address
@@ -24,7 +24,7 @@ Spree::LineItem.class_eval do
   end
 
   def price_with_discounts
-    round_to_two_places(pre_tax_amount / quantity)
+    round_to_two_places(total_excluding_vat / quantity)
   end
 
   def round_to_two_places(amount)
