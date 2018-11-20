@@ -1,7 +1,7 @@
 module Spree
   class Calculator::TaxCloudCalculator < Calculator::DefaultTax
     def self.description
-      Spree.t(:tax_cloud)
+      I18n.t('spree.tax_cloud')
     end
 
     # Default tax calculator still needs to support orders for legacy reasons

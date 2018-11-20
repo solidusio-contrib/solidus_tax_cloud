@@ -2,7 +2,7 @@ module Spree
   class TaxCloud
     def self.transaction_from_order(order)
       stock_location = order.shipments.first.try(:stock_location) || Spree::StockLocation.active.where('city IS NOT NULL and state_id IS NOT NULL').first
-      raise Spree.t(:ensure_one_valid_stock_location) unless stock_location
+      raise I18n.t('spree.ensure_one_valid_stock_location') unless stock_location
 
       destination = address_from_spree_address(order.ship_address || order.billing_address)
       begin
@@ -57,7 +57,7 @@ module Spree
           quantity: 1
         )
       else
-        raise Spree.t(:cart_item_cannot_be_made)
+        raise I18n.t('spree.cart_item_cannot_be_made')
       end
     end
   end
