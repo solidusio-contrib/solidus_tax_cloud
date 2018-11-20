@@ -172,5 +172,19 @@ describe 'Models' do
       # capture = transaction.authorized_with_capture
       # expect(capture).to eq('OK')
     end
+
+    it 'TaxCloud Test Case 6, with shipping promotion' do
+      destination = TaxCloud::Address.new(address1: '384 Northyards Blvd NW', city: 'Atlanta', state: 'GA', zip5: '30313')
+      cart_items = []
+      cart_items << TaxCloud::CartItem.new(index: 0, item_id: 'Shirt003', tic: '20010', quantity: 1, price: 10.00)
+      cart_items << TaxCloud::CartItem.new(index: 1, item_id: 'Shipping', tic: '11010', quantity: 1, price: 0.00)
+      transaction = test_transaction(cart_items, origin, destination)
+
+      result = transaction.lookup
+
+      expect(result.cart_items.size).to eq 2
+      expect(result.cart_items.detect { |i| i.cart_item_index == 0 }.tax_amount).to eq 0.89
+      expect(result.cart_items.detect { |i| i.cart_item_index == 1 }.tax_amount).to eq 0.00
+    end
   end
 end
