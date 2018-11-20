@@ -300,6 +300,31 @@ describe 'Checkout', js: true do
       expect(page).to have_content(/Sales Tax\s\$0.43/i)
       expect(page).to have_content(/Order Total:\s\$15.43/i)
     end
+
+    it 'TaxCloud Test Case 3, with item discount, multiple items' do
+      add_to_cart('Shirt')
+      add_to_cart('Shirt')
+
+      fill_in 'order_coupon_code', with: 'AAAA'
+      click_button 'Update'
+      expect(page).not_to have_content('The coupon code you entered doesn\'t exist.')
+      expect(page).to have_content('The coupon code was successfully applied to your order.')
+      click_button 'Checkout'
+
+      fill_in 'order_email', with: 'test@example.com'
+      click_button 'Continue'
+      expect(page).to have_content(/Item Total:\s\$20/i)
+      page.should have_content(/Promotion \(Promo\)\s\-\$5.00/i)
+      expect(page).to have_content(/Order Total:\s\$15/i)
+      fill_in_address(test_case_3_address)
+      click_button 'Save and Continue'
+
+      expect(page).not_to have_content(/Address Verification Failed/i)
+      click_button 'Save and Continue'
+
+      expect(page).to have_content(/Sales Tax\s\$1.29/i)
+      expect(page).to have_content(/Order Total:\s\$36.29/i)
+    end
   end
 
   def add_to_cart(item_name)
