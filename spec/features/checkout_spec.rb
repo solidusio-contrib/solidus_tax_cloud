@@ -295,7 +295,7 @@ describe 'Checkout', js: true do
       fill_in 'order_email', with: 'test@example.com'
       click_button 'Continue'
       expect(page).to have_content(/Item Total:\s\$10/i)
-      page.should have_content(/Promotion \(Promo\)\s\-\$5.00/i)
+      expect(page).to have_content(/Promotion \(Promo\)\s\-\$5.00/i)
       expect(page).to have_content(/Order Total:\s\$5/i)
       fill_in_address(test_case_3_address)
       click_button 'Save and Continue'
@@ -320,7 +320,7 @@ describe 'Checkout', js: true do
       fill_in 'order_email', with: 'test@example.com'
       click_button 'Continue'
       expect(page).to have_content(/Item Total:\s\$20/i)
-      page.should have_content(/Promotion \(Promo\)\s\-\$5.00/i)
+      expect(page).to have_content(/Promotion \(Promo\)\s\-\$5.00/i)
       expect(page).to have_content(/Order Total:\s\$15/i)
       fill_in_address(test_case_3_address)
       click_button 'Save and Continue'
