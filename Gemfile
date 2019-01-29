@@ -1,20 +1,19 @@
 source 'https://rubygems.org'
 
 branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
-gem "solidus", github: "solidusio/solidus", branch: branch
+gem "solidus", git: 'https://github.com/solidusio/solidus.git', branch: branch
 
 group :test do
-  if branch == 'master' || branch >= "v2.0"
-    gem "rails-controller-testing"
-  else
-    gem "rails_test_params_backport"
-  end
+  gem 'rails-controller-testing'
+  gem 'capybara-screenshot'
 end
 
 gem 'rake', '< 11.0'
-gem 'capybara-screenshot', group: :test
 
-gem 'pg'
-gem 'mysql2'
+if ENV['DB'] == 'mysql'
+  gem 'mysql2', '~> 0.4.10'
+else
+  gem 'pg', '~> 0.21'
+end
 
 gemspec
