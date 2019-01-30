@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
-gem "solidus", git: 'https://github.com/solidusio/solidus.git', branch: branch
+gem 'solidus', github: 'solidusio/solidus', branch: branch
 
 group :test do
   gem 'rails-controller-testing'
