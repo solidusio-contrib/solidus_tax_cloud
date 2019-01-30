@@ -286,8 +286,14 @@ describe 'Checkout', js: true do
     it 'TaxCloud Test Case 3, with item discount' do
       add_to_cart('Shirt')
 
-      fill_in 'order_coupon_code', with: 'AAAA'
-      click_button 'Update'
+      if Spree.solidus_gem_version >= Gem::Version.new('2.8.0')
+        fill_in 'coupon_code', with: 'AAAA'
+        click_button 'Apply Code'
+      else
+        fill_in 'order_coupon_code', with: 'AAAA'
+        click_button 'Update'
+      end
+
       expect(page).not_to have_content('The coupon code you entered doesn\'t exist.')
       expect(page).to have_content('The coupon code was successfully applied to your order.')
       click_button 'Checkout'
@@ -311,8 +317,14 @@ describe 'Checkout', js: true do
       add_to_cart('Shirt')
       add_to_cart('Shirt')
 
-      fill_in 'order_coupon_code', with: 'AAAA'
-      click_button 'Update'
+      if Spree.solidus_gem_version >= Gem::Version.new('2.8.0')
+        fill_in 'coupon_code', with: 'AAAA'
+        click_button 'Apply Code'
+      else
+        fill_in 'order_coupon_code', with: 'AAAA'
+        click_button 'Update'
+      end
+
       expect(page).not_to have_content('The coupon code you entered doesn\'t exist.')
       expect(page).to have_content('The coupon code was successfully applied to your order.')
       click_button 'Checkout'
