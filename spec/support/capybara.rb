@@ -1,8 +1,3 @@
-require 'capybara/rspec'
-require 'capybara/rails'
-require 'capybara/poltergeist'
-require 'capybara-screenshot/rspec'
-
 module Spree
   module TestingSupport
     module CapybaraHelpers
@@ -20,9 +15,4 @@ end
 
 RSpec.configure do |config|
   config.include Spree::TestingSupport::CapybaraHelpers, type: :feature
-  Capybara.register_driver(:poltergeist) do |app|
-    Capybara::Poltergeist::Driver.new app, timeout: 90
-  end
-  Capybara.javascript_driver = :poltergeist
-  Capybara.default_max_wait_time = 5
 end
