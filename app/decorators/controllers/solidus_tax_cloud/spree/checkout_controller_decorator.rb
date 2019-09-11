@@ -1,0 +1,22 @@
+module SolidusTaxCloud
+  module Spree
+    module CheckoutControllerDecorator
+      def self.prepended(base)
+        base.class_eval do
+          rescue_from SpreeTaxCloud::Error do |exception|
+            flash[:error] = exception.message
+            redirect_to checkout_state_path(:address)
+          end
+
+          rescue_from TaxCloud::Errors::ApiError do |exception|
+            exception_message = exception.problem
+            flash[:error] = I18n.t('spree.address_verification_failed') + (exception_message ? ": #{exception_message}" : '')
+            redirect_to checkout_state_path(:address)
+          end
+        end
+      end
+
+      ::Spree::CheckoutController.prepend(self) if SolidusSupport.frontend_available?
+    end
+  end
+end
