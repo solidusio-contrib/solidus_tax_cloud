@@ -16,38 +16,23 @@ module SpreeTaxCloud
     end
 
     def self.activate
-      Dir.glob(File.join(File.dirname(__FILE__), '../../app/*/spree/*_decorator*.rb')) do |c|
+      Dir.glob(File.join(File.dirname(__FILE__), '../../app/decorators/**/*.rb')) do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)
       end
 
-      if SpreeTaxCloud::Engine.backend_available?
-        Dir.glob(File.join(File.dirname(__FILE__), '../../app/**/admin/*_decorator*.rb')) do |c|
-          Rails.configuration.cache_classes ? require(c) : load(c)
-        end
-      end
-
-      if SpreeTaxCloud::Engine.frontend_available?
-        Rails.application.config.assets.precompile += [
-          'lib/assets/javascripts/spree/frontend/spree_tax_cloud.js',
-          'lib/assets/stylesheets/spree/frontend/spree_tax_cloud.css'
+      if SolidusSupport.frontend_available?
+        Rails.application.config.assets.precompile += %w[
+          lib/assets/javascripts/spree/frontend/spree_tax_cloud.js
+          lib/assets/stylesheets/spree/frontend/spree_tax_cloud.css
         ]
-        Dir.glob(File.join(File.dirname(__FILE__), '../../app/**/frontend/*_decorator*.rb')) do |c|
-          Rails.configuration.cache_classes ? require(c) : load(c)
-        end
       end
     end
 
-    def self.backend_available?
-      @@frontend_available ||= ::Rails::Engine.subclasses.map(&:instance).map { |e| e.class.to_s }.include?('Spree::Backend::Engine')
+    if SolidusSupport.backend_available?
+      paths['app/controllers'] << 'lib/controllers/admin'
     end
 
-    paths['app/controllers'] << 'lib/controllers/admin' if backend_available?
-
-    def self.frontend_available?
-      @@frontend_available ||= ::Rails::Engine.subclasses.map(&:instance).map { |e| e.class.to_s }.include?('Spree::Frontend::Engine')
-    end
-
-    if frontend_available?
+    if SolidusSupport.frontend_available?
       paths['app/controllers'] << 'lib/controllers/frontend'
     end
 

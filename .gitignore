@@ -25,3 +25,5 @@ tags
 .rvmrc
 .ruby-version
 .ruby-gemset
+coverage
+spec/examples.txt
