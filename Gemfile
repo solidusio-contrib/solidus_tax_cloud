@@ -8,7 +8,7 @@ group :test do
   gem 'capybara-screenshot'
 end
 
-gem 'rake', '< 11.0'
+gem 'rake', '< 14.0'
 
 # Needed to help Bundler figure out how to resolve dependencies, otherwise it takes forever to
 # resolve them
