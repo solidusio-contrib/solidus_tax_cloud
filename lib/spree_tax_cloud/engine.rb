@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SpreeTaxCloud
   class Engine < Rails::Engine
     require 'spree/core'

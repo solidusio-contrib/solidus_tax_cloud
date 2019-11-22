@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'Checkout', js: true do
@@ -46,7 +48,7 @@ describe 'Checkout', js: true do
     stock_location.stock_items.update_all(count_on_hand: 1)
   end
 
-  it 'should display tax lookup error if invalid address' do
+  it 'displays tax lookup error if invalid address' do
     add_to_cart('RoR Mug')
     click_button 'Checkout'
 
@@ -61,19 +63,19 @@ describe 'Checkout', js: true do
     expect(page).to have_content(/Address Verification Failed/i)
   end
 
-  it 'should tolerate a missing sku without throwing a Tax Cloud exception' do
+  it 'tolerates a missing sku without throwing a Tax Cloud exception' do
     add_to_cart('RoR Mug')
     click_button 'Checkout'
 
     fill_in 'order_email', with: 'test@example.com'
     fill_in_address(alabama_address)
-    Spree::Product.where(name: 'RoR Mug').first.update_attributes(sku: '')
+    Spree::Product.where(name: 'RoR Mug').first.update(sku: '')
 
     click_button 'Save and Continue'
     expect(page).not_to have_content(/Address Verification Failed/i)
   end
 
-  it 'should calculate and display tax on payment step and allow full checkout' do
+  it 'calculates and display tax on payment step and allow full checkout' do
     add_to_cart('RoR Mug')
     click_button 'Checkout'
 
@@ -87,7 +89,7 @@ describe 'Checkout', js: true do
     expect(current_path).to match(spree.order_path(Spree::Order.last))
   end
 
-  it 'should not break when removing all items from cart after a tax calculation has been created' do
+  it 'does not break when removing all items from cart after a tax calculation has been created' do
     add_to_cart('RoR Mug')
     click_button 'Checkout'
 
@@ -106,7 +108,7 @@ describe 'Checkout', js: true do
     expect(page).not_to have_content(/Internal Server Error/i)
   end
 
-  it 'should only calculate using tax cloud for orders that use the tax cloud calculator' do
+  it 'onlies calculate using tax cloud for orders that use the tax cloud calculator' do
     add_to_cart('RoR Mug')
     click_button 'Checkout'
 
@@ -357,7 +359,7 @@ describe 'Checkout', js: true do
 
       expect(page).to have_content(/Sales Tax\s\$1.78/i)
       expect(page).to have_content(/Order Total:\s\$21.78/i)
-      expect(page).to_not have_content(/Address Verification Failed/i)
+      expect(page).not_to have_content(/Address Verification Failed/i)
 
       click_button 'Save and Continue'
 

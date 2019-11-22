@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module SpreeTaxCloud
   module Generators
     class InstallGenerator < Rails::Generators::Base
       class_option :auto_run_migrations, type: :boolean, default: false
 
       argument :file_name, type: :string, desc: 'rails app_path', default: '.'
-      source_root File.expand_path('../../templates', __FILE__)
+      source_root File.expand_path('../templates', __dir__)
 
       def copy_initializer_file
         template 'ca-bundle.crt', "#{file_name}/lib/ca-bundle.crt"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Spree
   class Calculator::TaxCloudCalculator < Calculator::DefaultTax
     def self.description
@@ -7,7 +9,7 @@ module Spree
     # Default tax calculator still needs to support orders for legacy reasons
     # Orders created before Spree 2.1 had tax adjustments applied to the order, as a whole.
     # Orders created with Spree 2.2 and after, have them applied to the line items individually.
-    def compute_order(order)
+    def compute_order(_order)
       raise 'Spree::TaxCloud is designed to calculate taxes at the shipment and line-item levels.'
     end
 
@@ -24,7 +26,7 @@ module Spree
     alias compute_shipment compute_shipment_or_line_item
     alias compute_line_item compute_shipment_or_line_item
 
-    def compute_shipping_rate(shipping_rate)
+    def compute_shipping_rate(_shipping_rate)
       if rate.included_in_price
         raise 'TaxCloud cannot calculate inclusive sales taxes.'
       else

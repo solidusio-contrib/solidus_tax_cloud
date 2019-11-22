@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.configure do |config|
   # Official verification and test harness login credentials provided 7/8/14
   # by David Campbell of The Federal Tax Authority.

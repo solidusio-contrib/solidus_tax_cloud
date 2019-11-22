@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Spree
   class TaxCloud
     def self.transaction_from_order(order)
@@ -32,9 +34,9 @@ module Spree
       ::TaxCloud::Address.new(
         address1: address.address1,
         address2: address.address2,
-        city:     address.city,
-        state:    address.try(:state).try(:abbr),
-        zip5:     address.zipcode.try(:[], 0...5)
+        city: address.city,
+        state: address.try(:state).try(:abbr),
+        zip5: address.zipcode.try(:[], 0...5)
       )
     end
 
@@ -42,18 +44,18 @@ module Spree
       case item
       when Spree::LineItem
         ::TaxCloud::CartItem.new(
-          index:    index,
-          item_id:  item.try(:variant).try(:sku).present? ? item.try(:variant).try(:sku) : "LineItem #{item.id}",
-          tic:      (item.product.tax_cloud_tic || Spree::Config.taxcloud_default_product_tic),
-          price:    item.price_with_discounts,
+          index: index,
+          item_id: item.try(:variant).try(:sku).presence || "LineItem #{item.id}",
+          tic: (item.product.tax_cloud_tic || Spree::Config.taxcloud_default_product_tic),
+          price: item.price_with_discounts,
           quantity: item.quantity
         )
       when Spree::Shipment
         ::TaxCloud::CartItem.new(
-          index:    index,
-          item_id:  "Shipment #{item.number}",
-          tic:      Spree::Config.taxcloud_shipping_tic,
-          price:    item.price_with_discounts,
+          index: index,
+          item_id: "Shipment #{item.number}",
+          tic: Spree::Config.taxcloud_shipping_tic,
+          price: item.price_with_discounts,
           quantity: 1
         )
       else
