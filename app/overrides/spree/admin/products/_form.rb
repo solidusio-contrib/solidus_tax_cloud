@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Deface::Override.new(
   virtual_path: 'spree/admin/products/_form',
   name: 'add_tic_to_admin_product_edit',

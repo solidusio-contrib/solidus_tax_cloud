@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusTaxCloud
   module Spree
     module ProductDecorator
@@ -7,7 +9,6 @@ module SolidusTaxCloud
         end
       end
 
-
       # Use the store-default TaxCloud product TIC if none is defined for this product
       def tax_cloud_tic
         read_attribute(:tax_cloud_tic) || ::Spree::Config.taxcloud_default_product_tic
@@ -15,7 +16,7 @@ module SolidusTaxCloud
 
       # Empty strings are written as nil (which avoids the format validation)
       def tax_cloud_tic=(tic)
-        write_attribute(:tax_cloud_tic, tic.present? ? tic : nil)
+        write_attribute(:tax_cloud_tic, tic.presence)
       end
 
       ::Spree::Product.prepend self

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'fileutils'
 include FileUtils::Verbose
 
@@ -15,6 +17,7 @@ namespace :tax_cloud do
       ActiveRecord::Base.configurations = reference.dup
       reference.each_key do |name|
         next unless name.include? env
+
         puts "Migrating #{name}"
         ActiveRecord::Base.clear_active_connections!
         ActiveRecord::Base.configurations[env] = reference[name]
@@ -31,7 +34,7 @@ namespace :tax_cloud do
     end
 
     desc 'Loads a specified fixture using rake db:load_file[filename.rb]'
-    task :load_file, [:file] => :environment do |t, args|
+    task :load_file, [:file] => :environment do |_t, args|
       file = args.file
       ext = File.extname file
       if (ext == '.csv') || (ext == '.yml')
@@ -46,7 +49,7 @@ namespace :tax_cloud do
     end
 
     desc 'Loads fixtures from the the dir you specify using rake db:load_dir[loadfrom]'
-    task :load_dir, [:dir] => :environment do |t, args|
+    task :load_dir, [:dir] => :environment do |_t, args|
       dir = args.dir
       fixtures = ActiveSupport::OrderedHash.new
       ruby_files = ActiveSupport::OrderedHash.new
@@ -58,11 +61,11 @@ namespace :tax_cloud do
           fixtures[File.basename(fixture_file, '.*')] = fixture_file
         end
       end
-      fixtures.sort.each do |fixture, fixture_file|
+      fixtures.sort.each do |_fixture, fixture_file|
         # an invoke will only execute the task once
         Rake::Task['db:load_file'].execute(Rake::TaskArguments.new([:file], [fixture_file]))
       end
-      ruby_files.sort.each do |fixture, ruby_file|
+      ruby_files.sort.each do |_fixture, ruby_file|
         # an invoke will only execute the task once
         Rake::Task['db:load_file'].execute(Rake::TaskArguments.new([:file], [ruby_file]))
       end

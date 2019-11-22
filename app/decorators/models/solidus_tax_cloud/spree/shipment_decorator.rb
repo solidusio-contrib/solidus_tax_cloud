@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module SolidusTaxCloud
   module Spree
     module ShipmentDecorator
-
       def tax_cloud_cache_key
         if ActiveRecord::Base.try(:cache_versioning)
           cache_key

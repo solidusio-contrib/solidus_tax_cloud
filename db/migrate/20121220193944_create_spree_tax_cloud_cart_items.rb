@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSpreeTaxCloudCartItems < ActiveRecord::Migration[4.2]
   def change
     create_table :spree_tax_cloud_cart_items do |t|

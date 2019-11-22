@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 # This spec ensures that the low-level TaxCloud API returns the values specified by the TaxCloud Implementation Guide.

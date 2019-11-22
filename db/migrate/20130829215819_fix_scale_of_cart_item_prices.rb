@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixScaleOfCartItemPrices < ActiveRecord::Migration[4.2]
   def up
     change_column :spree_tax_cloud_cart_items, :price,      :decimal, precision: 8,  scale: 2
