@@ -108,7 +108,7 @@ describe 'Checkout', js: true do
     expect(page).not_to have_content(/Internal Server Error/i)
   end
 
-  it 'onlies calculate using tax cloud for orders that use the tax cloud calculator' do
+  it 'only calculates using tax cloud for orders that use the tax cloud calculator' do
     add_to_cart('RoR Mug')
     click_button 'Checkout'
 
