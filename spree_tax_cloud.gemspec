@@ -22,5 +22,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'tax_cloud', '~> 0.3.0'
 
   s.add_development_dependency 'generator_spec'
-  s.add_development_dependency 'solidus_extension_dev_tools'
+  s.add_development_dependency 'solidus_dev_support'
 end
