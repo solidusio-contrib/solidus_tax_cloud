@@ -175,7 +175,6 @@ describe 'Checkout', js: true do
 
   it 'TaxCloud Test Case 2a: If all items in cart are tax exempt, shipping is not taxed (in some states)' do
     add_to_cart('Shirt')
-    expect(page).to have_content(/Total\s\$10/i)
     click_button 'Checkout'
 
     expect(page).to have_content(/Item Total:\s\$10/i)
