@@ -175,7 +175,6 @@ describe 'Checkout', js: true do
 
   it 'TaxCloud Test Case 2a: If all items in cart are tax exempt, shipping is not taxed (in some states)' do
     add_to_cart('Shirt')
-    expect(page).to have_content(/Total\s\$10/i)
     click_button 'Checkout'
 
     expect(page).to have_content(/Item Total:\s\$10/i)
@@ -368,13 +367,6 @@ describe 'Checkout', js: true do
 
       fill_in 'Coupon Code', with: 'BBBB'
       click_button 'Apply Code'
-
-      # Wait for the ajax to complete for the refresh.
-      Timeout.timeout(Capybara.default_max_wait_time) do
-        loop do
-          break if page.evaluate_script('jQuery.active').to_i == 0
-        end
-      end
 
       expect(page).to have_content(/Sales Tax\s\$0.89/i)
       expect(page).to have_content(/Order Total:\s\$10.89/i)

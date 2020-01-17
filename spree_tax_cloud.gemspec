@@ -16,11 +16,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'solidus_api'
   s.add_dependency 'solidus_backend'
   s.add_dependency 'solidus_core', ['>= 1.2.0', '< 3']
+  s.add_dependency 'solidus_support', '~> 0.4.0'
 
   s.add_dependency 'deface'
   s.add_dependency 'savon', '~> 2.12.0'
   s.add_dependency 'tax_cloud', '~> 0.3.0'
 
   s.add_development_dependency 'generator_spec'
-  s.add_development_dependency 'solidus_extension_dev_tools'
+  s.add_development_dependency 'solidus_dev_support'
 end
