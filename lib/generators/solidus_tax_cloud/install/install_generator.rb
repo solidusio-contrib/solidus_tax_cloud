@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SpreeTaxCloud
+module SolidusTaxCloud
   module Generators
     class InstallGenerator < Rails::Generators::Base
       class_option :auto_run_migrations, type: :boolean, default: false
@@ -13,7 +13,7 @@ module SpreeTaxCloud
       end
 
       def add_migrations
-        run 'bundle exec rake railties:install:migrations FROM=spree_tax_cloud'
+        run 'bundle exec rake railties:install:migrations FROM=solidus_tax_cloud'
       end
 
       def run_migrations

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SpreeTaxCloud
+module SolidusTaxCloud
   class Error < StandardError
   end
 end
