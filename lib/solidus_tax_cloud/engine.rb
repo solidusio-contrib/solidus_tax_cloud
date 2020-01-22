@@ -1,16 +1,20 @@
 # frozen_string_literal: true
 
+require 'spree/core'
+
 module SolidusTaxCloud
   class Engine < Rails::Engine
-    require 'spree/core'
-    isolate_namespace Spree
+    include SolidusSupport::EngineExtensions::Decorators
+
+    isolate_namespace ::Spree
+
     engine_name 'solidus_tax_cloud'
 
     config.autoload_paths += %W[#{config.root}/lib]
 
     # use rspec for tests
-    config.generators do |generator|
-      generator.test_framework :rspec
+    config.generators do |g|
+      g.test_framework :rspec
     end
 
     initializer 'solidus_tax_cloud.permitted_attributes' do |_app|

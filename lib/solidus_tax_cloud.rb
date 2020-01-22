@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require 'spree_api'
-require 'spree_backend'
-require 'spree_core'
+require 'solidus_api'
+require 'solidus_backend'
+require 'solidus_core'
 require 'solidus_support'
+require 'solidus_tax_cloud/version'
 require 'solidus_tax_cloud/engine'
-require 'solidus_tax_cloud/error'
-require 'tax_cloud'
