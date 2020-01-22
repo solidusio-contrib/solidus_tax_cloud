@@ -1,0 +1,5 @@
+bump:
+  recurse: false
+  file: 'lib/solidus_tax_cloud/version.rb'
+  message: Bump SolidusTaxCloud to %{version}
+  tag: true

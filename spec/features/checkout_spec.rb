@@ -53,6 +53,8 @@ describe 'Checkout', js: true do
     click_button 'Checkout'
 
     fill_in 'order_email', with: 'test@example.com'
+    click_button 'Continue'
+
     fill_in_address(alabama_address)
     fill_in 'order_bill_address_attributes_zipcode', with: '12345'
 
@@ -68,6 +70,8 @@ describe 'Checkout', js: true do
     click_button 'Checkout'
 
     fill_in 'order_email', with: 'test@example.com'
+    click_button 'Continue'
+
     fill_in_address(alabama_address)
     Spree::Product.where(name: 'RoR Mug').first.update(sku: '')
 
@@ -80,6 +84,8 @@ describe 'Checkout', js: true do
     click_button 'Checkout'
 
     fill_in 'order_email', with: 'test@example.com'
+    click_button 'Continue'
+
     fill_in_address(alabama_address)
     click_button 'Save and Continue'
     click_button 'Save and Continue'
@@ -94,6 +100,8 @@ describe 'Checkout', js: true do
     click_button 'Checkout'
 
     fill_in 'order_email', with: 'test@example.com'
+    click_button 'Continue'
+
     fill_in_address(alabama_address)
     click_button 'Save and Continue'
     click_button 'Save and Continue'
@@ -113,9 +121,11 @@ describe 'Checkout', js: true do
     click_button 'Checkout'
 
     fill_in 'order_email', with: 'test@example.com'
-    fill_in_address(uk_address)
+    click_button 'Continue'
 
+    fill_in_address(uk_address)
     click_button 'Save and Continue'
+
     # There should not be a check on the address because
     # the rate is not handled by TaxCloud.
     expect(page).not_to have_content(/Address Verification Failed/i)
@@ -177,8 +187,11 @@ describe 'Checkout', js: true do
     add_to_cart('Shirt')
     click_button 'Checkout'
 
-    expect(page).to have_content(/Item Total:\s\$10/i)
+    expect(page).to have_css('.cart-info', text: '$10.00')
+
     fill_in 'order_email', with: 'test@example.com'
+    click_button 'Continue'
+
     fill_in_address(test_case_2a_address)
     click_button 'Save and Continue'
 

@@ -22,7 +22,7 @@ Solidus Configuration
 
 1. Add this extension to your Gemfile with this line:
   ```ruby
-  gem 'spree_tax_cloud', github: 'solidusio-contrib/solidus_tax_cloud'
+  gem 'solidus_tax_cloud', github: 'solidusio-contrib/solidus_tax_cloud'
   ```
 
   Note that the gem currently uses the Spree namespace internally (as does Solidus itself).
@@ -36,7 +36,7 @@ Solidus Configuration
 
 3. Copy & run migrations
   ```ruby
-  bundle exec rails g spree_tax_cloud:install
+  bundle exec rails g solidus_tax_cloud:install
   ```
 
 4. Create an initializer file with your TaxCloud credentials
