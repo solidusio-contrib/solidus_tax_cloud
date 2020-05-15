@@ -156,10 +156,10 @@ describe 'Checkout', js: true do
     # Case 7, Handling Errors).
     #
     # NOTE: In the API specs (from official TaxCloud Implementation Verification Guide), there is
-    # no shipping item sent to TaxCloud, and there is only a single $1.00 charge for the item.
+    # no shipping item sent to TaxCloud, and there is only a single $0.99 charge for the item.
     # In this integration test, Solidus will automatically send the shipping information, which
-    # results in a second $1.00 charge, for a total tax of $2.00.
-    expect(page).to have_content(/Sales Tax\s\$2.00/i)
+    # results in a second $0.99 charge, for a total tax of $1.98.
+    expect(page).to have_content(/Sales Tax\s\$1.98/i)
   end
 
   it 'TaxCloud Test Case 1b: Verify Address without error' do
