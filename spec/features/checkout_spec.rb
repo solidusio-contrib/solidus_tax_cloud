@@ -403,8 +403,13 @@ describe 'Checkout', js: true do
 
   def fill_in_address(address)
     fieldname = 'order_bill_address_attributes'
-    fill_in "#{fieldname}_firstname", with: address.first_name
-    fill_in "#{fieldname}_lastname", with: address.last_name
+    if Spree::Config.has_preference?(:use_combined_first_and_last_name_in_address) &&
+       Spree::Config.use_combined_first_and_last_name_in_address
+      fill_in "#{fieldname}_name", with: address.name
+    else
+      fill_in "#{fieldname}_firstname", with: address.first_name
+      fill_in "#{fieldname}_lastname", with: address.last_name
+    end
 
     fill_in "#{fieldname}_address1", with: address.address1
     fill_in "#{fieldname}_city", with: address.city
