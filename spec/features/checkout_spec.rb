@@ -405,6 +405,7 @@ describe 'Checkout', js: true do
     fieldname = 'order_bill_address_attributes'
     fill_in "#{fieldname}_firstname", with: address.first_name
     fill_in "#{fieldname}_lastname", with: address.last_name
+
     fill_in "#{fieldname}_address1", with: address.address1
     fill_in "#{fieldname}_city", with: address.city
     select address.country.name, from: "#{fieldname}_country_id"
@@ -426,94 +427,80 @@ describe 'Checkout', js: true do
   end
 
   def stock_location_address
-    Spree::Address.new(
-      firstname: 'Testing',
-      lastname: 'Location',
+    build(
+      :address,
       address1: '3121 W Government Way',
       city: 'Seattle',
       country: Spree::Country.find_by(name: 'United States of America'),
       state: Spree::State.find_by(abbr: 'WA'),
-      zipcode: '98199-1402',
-      phone: '(555) 5555-555'
+      zipcode: '98199-1402'
     )
   end
 
   def test_case_1a_address
-    Spree::Address.new(
-      firstname: 'John',
-      lastname: 'Doe',
+    build(
+      :address,
       address1: '1 3rd Street',
       city: 'Seattle',
       country: Spree::Country.find_by(name: 'United States of America'),
       state: Spree::State.find_by(abbr: 'WA'),
-      zipcode: '98001',
-      phone: '(555) 5555-555'
+      zipcode: '98001'
     )
   end
 
   def test_case_1b_address
-    Spree::Address.new(
-      firstname: 'John',
-      lastname: 'Doe',
+    build(
+      :address,
       address1: '16422 SE 128th St',
       city: 'Renton',
       country: Spree::Country.find_by(name: 'United States of America'),
       state: Spree::State.find_by(abbr: 'WA'),
-      zipcode: '98059',
-      phone: '(555) 5555-555'
+      zipcode: '98059'
     )
   end
 
   def test_case_2a_address
-    Spree::Address.new(
-      firstname: 'John',
-      lastname: 'Doe',
+    build(
+      :address,
       address1: '75 Rev Martin Luther King Jr Drive',
       city: 'St. Paul',
       country: Spree::Country.find_by(name: 'United States of America'),
       state: Spree::State.find_by(abbr: 'MN'),
-      zipcode: '55155',
-      phone: '(555) 5555-555'
+      zipcode: '55155'
     )
   end
   alias_method :test_case_2b_address, :test_case_2a_address
 
   def test_case_3_address
-    Spree::Address.new(
-      firstname: 'John',
-      lastname: 'Doe',
+    build(
+      :address,
       address1: '2300 N Lincoln Blvd',
       city: 'Oklahoma City',
       country: Spree::Country.where(name: 'United States of America').first,
       state: Spree::State.where(abbr: 'OK').first,
-      zipcode: '73105',
-      phone: '(555) 5555-555'
+      zipcode: '73105'
     )
   end
 
   def test_case_6_address
-    Spree::Address.new(
-      firstname: 'John',
-      lastname: 'Doe',
+    build(
+      :address,
       address1: '384 Northyards Blvd NW',
       city: 'Atlanta',
       country: Spree::Country.where(name: 'United States of America').first,
       state: Spree::State.where(abbr: 'GA').first,
-      zipcode: '30313',
-      phone: '(555) 5555-555'
+      zipcode: '30313'
     )
   end
 
   def alabama_address
-    alabama_address = Spree::Address.new(
-      firstname: 'John',
-      lastname: 'Doe',
+    build(
+      :address,
       address1: '143 Swan Street',
       city: 'Montgomery',
       country: Spree::Country.where(name: 'United States of America').first,
       state: Spree::State.where(name: 'Alabama').first,
-      zipcode: '36110',
-      phone: '(555) 5555-555'
+      zipcode: '36110'
     )
   end
 end
