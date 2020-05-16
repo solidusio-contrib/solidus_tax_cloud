@@ -29,7 +29,7 @@ describe 'Models' do
 
     expect(result.cart_items.size).to eq 1
     expect(result.cart_items.first.cart_item_index).to eq 0
-    expect(result.cart_items.first.tax_amount).to eq 1.0
+    expect(result.cart_items.first.tax_amount).to eq 0.99
   end
 
   it 'TaxCloud Test Case 1b: Verify Address without error' do
