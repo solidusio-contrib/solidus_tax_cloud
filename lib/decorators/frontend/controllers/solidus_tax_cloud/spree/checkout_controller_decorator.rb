@@ -18,7 +18,7 @@ module SolidusTaxCloud
         end
       end
 
-      ::Spree::CheckoutController.prepend(self) if SolidusSupport.frontend_available?
+      ::Spree::CheckoutController.prepend self
     end
   end
 end

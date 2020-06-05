@@ -14,7 +14,7 @@ module SolidusTaxCloud
           end
         end
 
-        ::Spree::Admin::OrdersController.prepend(self) if SolidusSupport.backend_available?
+        ::Spree::Admin::OrdersController.prepend self
       end
     end
   end
