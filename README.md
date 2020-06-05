@@ -19,7 +19,7 @@ on sales tax collection for the states where you wish to collect sales tax.
 Once you have an account, add this extension to your Gemfile:
 
 ```ruby
-gem 'solidus_tax_cloud', github: 'solidusio-contrib/solidus_tax_cloud'
+gem 'solidus_tax_cloud'
 ```
 
 Install the gem:
