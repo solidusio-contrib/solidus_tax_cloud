@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/solidusio-contrib/solidus_tax_cloud/tree/HEAD)
+## [v1.0.0](https://github.com/solidusio-contrib/solidus_tax_cloud/tree/v1.0.0) (2020-06-05)
 
-[Full Changelog](https://github.com/solidusio-contrib/solidus_tax_cloud/compare/aaf557d4c0635f5e7d4211fff6c519f95d6e882c...HEAD)
+[Full Changelog](https://github.com/solidusio-contrib/solidus_tax_cloud/compare/aaf557d4c0635f5e7d4211fff6c519f95d6e882c...v1.0.0)
 
 **Fixed bugs:**
 
@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- DEPRECATION WARNING: SolidusSupport::EngineExtensions::Decorators is deprecated! [\#42](https://github.com/solidusio-contrib/solidus_tax_cloud/issues/42)
 - PR \#34 Broke Extension [\#36](https://github.com/solidusio-contrib/solidus_tax_cloud/issues/36)
 - Dependabot couldn't find a Gemfile-local for this project [\#35](https://github.com/solidusio-contrib/solidus_tax_cloud/issues/35)
 - Dependabot can't resolve your Ruby dependency files [\#33](https://github.com/solidusio-contrib/solidus_tax_cloud/issues/33)
@@ -27,6 +28,7 @@
 
 **Merged pull requests:**
 
+- Update extension template with solidus\_dev\_support [\#43](https://github.com/solidusio-contrib/solidus_tax_cloud/pull/43) ([aldesantis](https://github.com/aldesantis))
 - Handle combined Address first name and last name [\#41](https://github.com/solidusio-contrib/solidus_tax_cloud/pull/41) ([filippoliverani](https://github.com/filippoliverani))
 - Relax Solidus Support dependency [\#40](https://github.com/solidusio-contrib/solidus_tax_cloud/pull/40) ([kennyadsl](https://github.com/kennyadsl))
 - Fix Dependabot looking for Gemfile-local [\#38](https://github.com/solidusio-contrib/solidus_tax_cloud/pull/38) ([aldesantis](https://github.com/aldesantis))
