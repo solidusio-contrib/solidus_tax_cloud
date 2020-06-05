@@ -1,4 +1,7 @@
 require:
   - solidus_dev_support/rubocop
 
-inherit_from: .rubocop_todo.yml
+AllCops:
+  Exclude:
+    - sandbox/**/*
+    - spec/dummy/**/*

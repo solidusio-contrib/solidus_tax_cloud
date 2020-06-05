@@ -1,43 +1,38 @@
 # frozen_string_literal: true
 
-$:.push File.expand_path('lib', __dir__)
-require 'solidus_tax_cloud/version'
+require_relative 'lib/solidus_tax_cloud/version'
 
-Gem::Specification.new do |s|
-  s.platform    = Gem::Platform::RUBY
-  s.name        = 'solidus_tax_cloud'
-  s.version     = SolidusTaxCloud::VERSION
-  s.authors     = ['Jerrold Thompson']
-  s.email       = 'jet@whidbey.com'
-  s.homepage    = 'https://github.com/solidusio-contrib/solidus_tax_cloud'
-  s.summary     = 'Solidus extension providing Tax Cloud services'
-  s.description = s.summary
-  s.license     = 'BSD-3-Clause'
+Gem::Specification.new do |spec|
+  spec.name = 'solidus_tax_cloud'
+  spec.version = SolidusTaxCloud::VERSION
+  spec.authors = ['Jerrold Thompson']
+  spec.email = 'jet@whidbey.com'
 
-  s.required_ruby_version = '~> 2.4'
+  spec.summary = 'Solidus extension providing Tax Cloud services'
+  spec.description = 'Solidus extension providing Tax Cloud services'
+  spec.homepage = 'https://github.com/solidusio-contrib/solidus_tax_cloud'
+  spec.license = 'BSD-3-Clause'
 
-  s.files = Dir.chdir(File.expand_path(__dir__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  end
-  s.test_files = Dir['spec/**/*']
-  s.bindir = "exe"
-  s.executables = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  spec.metadata['homepage_uri'] = spec.homepage
+  spec.metadata['source_code_uri'] = 'https://github.com/solidusio-contrib/solidus_tax_cloud'
 
-  if s.respond_to?(:metadata)
-    s.metadata["homepage_uri"] = s.homepage if s.homepage
-    s.metadata["source_code_uri"] = s.homepage if s.homepage
-  end
+  spec.required_ruby_version = Gem::Requirement.new('~> 2.5')
 
-  s.add_dependency 'solidus_api'
-  s.add_dependency 'solidus_backend'
-  s.add_dependency 'solidus_core', ['>= 1.2.0', '< 3']
-  s.add_dependency 'solidus_support', '~> 0.5'
+  # Specify which files should be added to the gem when it is released.
+  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  files = Dir.chdir(__dir__) { `git ls-files -z`.split("\x0") }
 
-  s.add_dependency 'deface'
-  s.add_dependency 'savon', '~> 2.12.0'
-  s.add_dependency 'tax_cloud', '~> 0.3.0'
+  spec.files = files.grep_v(%r{^(test|spec|features)/})
+  spec.test_files = files.grep(%r{^(test|spec|features)/})
+  spec.bindir = "exe"
+  spec.executables = files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.require_paths = ["lib"]
 
-  s.add_development_dependency 'generator_spec'
-  s.add_development_dependency 'solidus_dev_support'
+  spec.add_dependency 'deface'
+  spec.add_dependency 'savon', '~> 2.12.0'
+  spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 3']
+  spec.add_dependency 'solidus_support', '~> 0.5'
+  spec.add_dependency 'tax_cloud', '~> 0.3.0'
+
+  spec.add_development_dependency 'solidus_dev_support'
 end
