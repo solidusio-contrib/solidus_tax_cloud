@@ -29,7 +29,7 @@ describe 'Models' do
 
     expect(result.cart_items.size).to eq 1
     expect(result.cart_items.first.cart_item_index).to eq 0
-    expect(result.cart_items.first.tax_amount).to eq 0.99
+    expect(result.cart_items.first.tax_amount).to eq 1.01
   end
 
   it 'TaxCloud Test Case 1b: Verify Address without error' do
@@ -43,11 +43,11 @@ describe 'Models' do
     # From TaxCloud:
     # The destination address used as-is will not give the most accurate rate ($1.00 in tax).
     # The verified address will have a Plus4 Zip Code of 98059-8625 give a correct result
-    # ($0.86 in tax).
+    # ($0.87 in tax).
 
     expect(result.cart_items.size).to eq 1
     expect(result.cart_items.first.cart_item_index).to eq 0
-    expect(result.cart_items.first.tax_amount).to eq 0.86
+    expect(result.cart_items.first.tax_amount).to eq 0.87
   end
 
   it 'TaxCloud Test Case 2a: If all items in cart are tax exempt, shipping is not taxed (in some states)' do

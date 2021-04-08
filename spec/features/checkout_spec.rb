@@ -156,10 +156,10 @@ describe 'Checkout', js: true do
     # Case 7, Handling Errors).
     #
     # NOTE: In the API specs (from official TaxCloud Implementation Verification Guide), there is
-    # no shipping item sent to TaxCloud, and there is only a single $0.99 charge for the item.
+    # no shipping item sent to TaxCloud, and there is only a single $1.01 charge for the item.
     # In this integration test, Solidus will automatically send the shipping information, which
-    # results in a second $0.99 charge, for a total tax of $1.98.
-    expect(page).to have_content(/Sales Tax\s\$1.98/i)
+    # results in a second $1.01 charge, for a total tax of $2.02.
+    expect(page).to have_content(/Sales Tax\s\$2.02/i)
   end
 
   it 'TaxCloud Test Case 1b: Verify Address without error' do
@@ -177,10 +177,10 @@ describe 'Checkout', js: true do
     # ($0.86 in tax).
     #
     # NOTE: In the API specs (from official TaxCloud Implementation Verification Guide), there is
-    # no shipping item sent to TaxCloud, and there is only a single $0.86 charge for the item.
+    # no shipping item sent to TaxCloud, and there is only a single $0.87 charge for the item.
     # In this integration test, Solidus will automatically send the shipping information, which
-    # results in a second $0.86 charge, for a total tax of $1.72.
-    expect(page).to have_content(/Sales Tax\s\$1.72/i)
+    # results in a second $0.87 charge, for a total tax of $1.74.
+    expect(page).to have_content(/Sales Tax\s\$1.74/i)
   end
 
   it 'TaxCloud Test Case 2a: If all items in cart are tax exempt, shipping is not taxed (in some states)' do
@@ -403,8 +403,7 @@ describe 'Checkout', js: true do
 
   def fill_in_address(address)
     fieldname = 'order_bill_address_attributes'
-    if Spree::Config.has_preference?(:use_combined_first_and_last_name_in_address) &&
-       Spree::Config.use_combined_first_and_last_name_in_address
+    if SolidusSupport.combined_first_and_last_name_in_address?
       fill_in "#{fieldname}_name", with: address.name
     else
       fill_in "#{fieldname}_firstname", with: address.first_name
