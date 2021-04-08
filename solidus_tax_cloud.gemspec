@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'deface'
   spec.add_dependency 'savon', '~> 2.12.0'
-  spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 3']
+  spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 4']
   spec.add_dependency 'solidus_support', '~> 0.5'
   spec.add_dependency 'tax_cloud', '>= 0.3', '< 0.5'
 
