@@ -12,10 +12,9 @@
           <legend align="center"><%= I18n.t('spree.tax_cloud_taxability_codes')%></legend>
             <% @preferences_tic.each do |key|
                 type = Spree::Config.preference_type(key) %>
-                <div class="field">
-                  <%= label_tag(key, I18n.t("spree.#{key}")) + tag(:br) if type != :boolean %>
-                  <%= preference_field_tag(key, Spree::Config[key], type: type) %>
-                  <%= label_tag(key, I18n.t("spree.#{key}")) + tag(:br) if type == :boolean %>
+                <div class="settings">
+                  <%= render "spree/admin/shared/preference_fields/#{type}",
+                    name: key, value: Spree::Config[key], label: I18n.t("spree.#{key}") %>
                 </div>
             <% end %>
         </fieldset>
@@ -23,7 +22,7 @@
     </div>
 
     <div class="form-buttons filter-actions actions" data-hook="buttons">
-        <%= button I18n.t('spree.actions.update'), 'refresh' %>
+        <%= button_tag I18n.t('spree.actions.update'), class: 'btn btn-primary' %>
         <span class="or"><%= I18n.t('spree.or') %></span>
         <%= link_to_with_icon 'remove', I18n.t('spree.actions.cancel'), edit_admin_tax_cloud_settings_url, class: 'button' %>
     </div>
